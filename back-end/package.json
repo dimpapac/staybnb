@@ -1,0 +1,22 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimpapac/Airbnb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dimpapac/Airbnb/issues"
+  },
+  "homepage": "https://github.com/dimpapac/Airbnb#readme",
+  "dependencies": {
+    "mongojs": "^3.1.0"
+  }
+}
