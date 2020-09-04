@@ -33,7 +33,7 @@ class NavBar extends Component {
         return (
             <React.Fragment>
             <nav className="navbar navbar-expand-lg navbar-light bg-light " >
-                <a className="navbar-brand " href="#"> <img className="logo_img"
+                <a className="navbar-brand " href="/"> <img className="logo_img"
                     src={logo}
                     alt=''
                 />
