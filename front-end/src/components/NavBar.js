@@ -24,7 +24,6 @@ class NavBar extends Component {
     };
 
     handleShow(){
-        console.log('RE')
         this.setState({ 
             setShow: true
         });
@@ -55,7 +54,8 @@ class NavBar extends Component {
                             <Modal.Header className= "text-center" closeButton>
                               <Modal.Title className= "w-100">Σύνδεση</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                            <Modal.Body>Woohoo, you're reading this text in a modal!
+                            </Modal.Body>
                             <Modal.Footer>
                               <Button variant="secondary" onClick={this.handleClose}>
                                 Close
