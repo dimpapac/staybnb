@@ -29,6 +29,24 @@ router.get('/health-check', function(req, res, next) {
 	}) 
 })
 
+async function comparePass(user, password) {
+
+	if (user) {
+		if (bcrypt.compareSync(password, user.passwordHash)) {
+			const token = jwt.sign({ sub: user.id }, config.secret); // <==== The all-important "jwt.sign" function
+			// const userObj = new User(user);
+			const { password, ...userWithoutHash } = user;
+			return {
+				...userWithoutHash,
+				token
+			};
+		} else {
+			//console.log('Wrong pswd');
+		}
+	}
+}
+
+
 // login user
 router.post('/login', function(req, res, next) {
 

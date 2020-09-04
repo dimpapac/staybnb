@@ -8,6 +8,7 @@ const jwt = require('./jwt');
 
 // import files
 const base = require('./routes/base');
+const apartments = require('./routes/apartments');
 
 // declare vars
 const options = {
@@ -33,7 +34,7 @@ app.use(bodyParser.json({limit: '50mb', extended: true}));
 
 
 app.use('/staybnb/api/', base);
-
+app.use('/staybnb/api/apartments', apartments);
 
 server = https.createServer(options, app).listen(port, function(){
 	console.log(`Server started on port ${port}`);

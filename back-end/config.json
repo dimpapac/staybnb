@@ -1,5 +1,4 @@
 {
-	// "dburi":"'mongodb+srv://admin:okokokok@cluster0.0kw64.mongodb.net/airbnb?retryWrites=true&w=majority'",
-	"dburi":"'mongodb+srv://admin:okokokok@cluster0.0kw64.mongodb.net/airbnb?retryWrites=true&w=majority'",
+	"dburi":"mongodb+srv://admin:okokokok@cluster0.0kw64.mongodb.net/airbnb?retryWrites=true&w=majority",
 	"secret":"TEDITEDITEDI"
 }
