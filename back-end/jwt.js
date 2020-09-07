@@ -8,12 +8,10 @@ function jwt() {
 	const secret = config.secret;
 	return expressJwt({ secret, isRevoked , algorithms: ['HS256'] }).unless({
 		path: [
-			// public routes that don't require authentication
-			'/staybnb/api/login',
-			'/staybnb/api/health-check',
-			'/staybnb/api/reset'
+			/^\/staybnb\/api\/.*/
 		]
 	});
+
 }
 
 async function isRevoked(req, payload, done) {

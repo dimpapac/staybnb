@@ -39,12 +39,11 @@ router.get('/', function(req, res, next) {
 
 // GET all available apartments in dates given
 router.get('/available', function(req, res, next) {
-
 	const format = req.query.format;
 	const start = parseInt(req.query.start);
 	const count = parseInt(req.query.count);
-	const startDate = req.query.startDate
-	const endDate = req.query.endDate
+	const startDate = parseInt(req.query.startDate);
+	const endDate = parseInt(req.query.endDate);
 	db.Bookings
 	.find({ 
 		$or : [ {$and : [ { 'bookedFrom' : { $lte : new Date(startDate) }  } , { 'bookedFrom' : { $lte : new Date(endDate) }  } ] } ,
@@ -63,7 +62,6 @@ router.get('/available', function(req, res, next) {
 			let result = bookings.map(a => mongojs.ObjectID(a.apartmentId) )
 			console.log(result)
 			db.Apartments.find( { _id : { $in: result } } , function(err , apartments ){
-				console.log("ASDASDASD")
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))
