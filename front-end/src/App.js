@@ -1,12 +1,12 @@
 
 import React, {Component} from 'react'
-import logo from './logo.svg';
 import NavBar from './components/NavBar'
 import './App.css';
-import SearchBar from './components/SearchBar';
+// import SearchBar from './components/SearchBar';
 import { withRouter } from 'react-router'
 import ApartmentList from './components/ApartmentList'
 import MainPage from './components/MainPage'
+import Help from './components/Help'
 
 import { Switch, Route , Redirect} from 'react-router-dom'
 
@@ -34,6 +34,7 @@ class App extends Component
           <Switch >
             <Route exact path='/' component={MainPage} history={this.props.history} />
             <Route path='/apartments' component={ApartmentList} history={this.props.history} />
+            <Route path='/help' component={Help} history={this.props.history} />
           </Switch>
         </div>
       );

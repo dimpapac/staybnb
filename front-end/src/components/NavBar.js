@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import logo from '../icons/mainlogo.png' 
 import '../css/navbar.css';
-import { Button } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 import { authenticationService } from '../services/authentication.service';
 
@@ -13,13 +12,23 @@ class NavBar extends Component {
         super()
         this.state = {
             show: false,
+            showReg: false,
             setShow: false,
+            setShowReg: false,
             flag: true,
+            name: "",
+            surname: "",
             username: "",
-            password: ""
+            email: "",
+            password: "",
+            newusername: "",
+            password1: "",
+            password2: ""
         }
         this.handleClose = this.handleClose.bind(this)
+        this.handleCloseReg = this.handleCloseReg.bind(this)
         this.handleShow = this.handleShow.bind(this)
+        this.handleShowReg = this.handleShowReg.bind(this)
         this.handleLogin = this.handleLogin.bind(this)
     } 
 
@@ -34,6 +43,19 @@ class NavBar extends Component {
             setShow: true
         });
     };
+
+    handleCloseReg(){
+        this.setState({ 
+            setShowReg: false
+        });
+    };
+
+    handleShowReg(){
+        this.setState({ 
+            setShowReg: true
+        });
+    };
+
 
     handleTextArea = event => {
         const {name,value} = event.target;
@@ -80,11 +102,58 @@ class NavBar extends Component {
                     <ul className="navbar-nav ml-auto " >
                     <button className="hostbutton" >Become a Host</button>
                     <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle "  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <a className="nav-link dropdown-toggle " href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             <i className="fa fa-bars"/>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" style={{ marginTop : 10}} aria-labelledby="navbarDropdown">
-                        <a className="dropdown-item" href="#">Εγγραφή</a>
+                        <button className="dropdown-item" onClick={this.handleShowReg}>Εγγραφή</button>
+
+                        <Modal show={this.state.setShowReg} onHide={this.handleCloseReg}>
+                            <Modal.Header className= "text-center" closeButton>
+                              <Modal.Title className= "w-100">Εγγραφή</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <form onSubmit={this.handleLogin}>
+                                  <div className="form-group">
+                                    <label for="username">Όνομα</label>
+                                      <input type="text" className="form-control" value={this.state.name} onChange={this.handleTextArea} name="name"  placeholder="Name"/>
+                                  </div>
+                                  <div className="form-group">
+                                    <label for="username">Επώνυμο </label>
+                                      <input type="text" className="form-control" value={this.state.surname} onChange={this.handleTextArea} name="surname"  placeholder="Surname"/>
+                                  </div>
+                                  <div className="form-group">
+                                    <label for="username">Email*</label>
+                                      <input type="email" className="form-control" id="exampleInputEmail1" value={this.state.email} onChange={this.handleTextArea} name="email" placeholder="Enter email"  required/>
+                                  </div>
+                                  <div className="form-group">
+                                    <label for="username">Όνομα Χρήστη*</label>
+                                      <input type="text" className="form-control" value={this.state.newusername} onChange={this.handleTextArea} name="newusername"  placeholder="Username" required/>
+                                  </div>
+                                  <div className="form-group">
+                                    <label for="inputPassword">Κωδικός Χρήστη*</label>
+                                      <input type="password" className="form-control" id="inputPassword" value={this.state.password1} onChange={this.handleTextArea} name="password1" placeholder="Password" required/>
+                                  </div>
+                                  <div className="form-group">
+                                    <label for="inputPassword">Κωδικός Χρήστη (Επιβεβαίωση)*</label>
+                                      <input type="password" className="form-control" id="inputPassword" value={this.state.password2} onChange={this.handleTextArea} name="password2" placeholder="Confirm Password" required/>
+                                  </div>
+                                  <button className="btn btn-primary w-100" type="submit" >
+                                    Εγγραφή
+                                  </button>
+                                    {!this.state.flag &&
+                                        <div className="mt-2 alert alert-danger">
+                                            <strong>Διαφορετικοί κωδικοί Χρήστη</strong>
+                                        </div>
+                                    }
+                                </form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <p>Έχετε λογαριασμό;</p>
+                              <button type="button" className="btn btn-link p-0 m-0" onClick={() => {this.handleCloseReg() ; this.handleShow();}}>Σύνδεση</button>
+                            </Modal.Footer>
+                        </Modal>
+
                         <button className="dropdown-item" onClick={this.handleShow}>Σύνδεση</button>
                         <Modal show={this.state.setShow} onHide={this.handleClose}>
                             <Modal.Header className= "text-center" closeButton>
@@ -93,29 +162,30 @@ class NavBar extends Component {
                             <Modal.Body>
                                 <form onSubmit={this.handleLogin}>
                                   <div className="form-group">
-                                    <label for="username" className="">Όνομα Χρήστη</label>
-                                    <div className="">
+                                    <label for="username">Όνομα Χρήστη</label>
                                       <input type="text" className="form-control" value={this.state.username} onChange={this.handleTextArea} name="username"  placeholder="Username"/>
-                                    </div>
                                   </div>
                                   <div className="form-group">
-                                    <label for="inputPassword" className="">Κωδικός Χρήστη</label>
-                                    <div className="">
+                                    <label for="inputPassword">Κωδικός Χρήστη</label>
                                       <input type="password" className="form-control" id="inputPassword" value={this.state.password} onChange={this.handleTextArea} name="password" placeholder="Password"/>
-                                    </div>
                                   </div>
                                   <button className="btn btn-primary w-100" type="submit" >
                                     Σύνδεση
                                   </button>
+                                    {!this.state.flag &&
+                                        <div className="mt-2 alert alert-danger">
+                                            <strong>To Όνομα Χρήστη ή ο Κωδικός Πρόσβασης είναι λάθος</strong>
+                                        </div>
+                                    }
                                 </form>
                             </Modal.Body>
                             <Modal.Footer>
                               <p>Δεν έχετε λογαριασμό;</p>
-                              <button type="button" className="btn btn-link p-0 m-0">Εγγραφή</button>
+                              <button type="button" className="btn btn-link p-0 m-0" onClick={() => {this.handleClose() ; this.handleShowReg();}} >Εγγραφή</button>
                             </Modal.Footer>
                         </Modal>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="#">Βοήθεια</a>
+                        <a className="dropdown-item" href="/help">Βοήθεια</a>
                         </div>
                     </li>
                     </ul>
