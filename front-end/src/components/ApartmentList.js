@@ -45,9 +45,8 @@ class ApartmentList extends Component {
     }
 
     render() { 
-        console.log(this.state.no_posts)
         return (
-            <div>
+            <div style = {{ marginTop : "10px"}}>
                 {!this.state.no_result && !this.state.no_posts && ( 
 					<div className = "scrolls">
 						{this.state.apartments.map((apartment) => {//Loop through every row of the json file and get the attributes
