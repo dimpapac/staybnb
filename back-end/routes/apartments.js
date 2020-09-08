@@ -46,11 +46,11 @@ router.get('/available', function(req, res, next) {
 	const endDate = parseInt(req.query.endDate);
 	db.Bookings
 	.find({ 
-		$or : [ {$and : [ { 'bookedFrom' : { $lte : new Date(startDate) }  } , { 'bookedFrom' : { $lte : new Date(endDate) }  } ] } ,
-		 {$and : [ { 'bookedTill' : { $gte : new Date(startDate) }  } , { 'bookedFrom' : { $gte : new Date(endDate) }  } ] } ] 
+		$or : [ {$and : [ { 'bookedFrom' : { $gt : new Date(startDate) }  } , { 'bookedFrom' : { $lt : new Date(endDate) }  } ] } ,
+		{$and : [ { 'bookedTill' : { $gt : new Date(startDate) }  } , { 'bookedTill' : { $lt : new Date(endDate) }  } ] } ,
+		{$and : [ { 'bookedTill' : { $gte : new Date(endDate) }  } , { 'bookedFrom' : { $lte : new Date(startDate) }  } ] }] 
 		})
-	// .find(  {$and : [ { 'bookedFrom' : { $gte : new Date(startDate) }  } , { 'bookedFrom' : { $gte : new Date(startDate) }  } ] }  )
-	.limit(count).skip(start, function(err, bookings) {
+	.limit(count).skip(start, function(err, invalidBookings) {
 		if (err) {
 			if (format && format === "xml")
 				res.send(json2xml(err))
@@ -59,9 +59,9 @@ router.get('/available', function(req, res, next) {
 			return;
 		}
 		else {
-			let result = bookings.map(a => mongojs.ObjectID(a.apartmentId) )
+			let result = invalidBookings.map(a => mongojs.ObjectID(a.apartmentId) )
 			console.log(result)
-			db.Apartments.find( { _id : { $in: result } } , function(err , apartments ){
+			db.Apartments.find( { _id : { $nin: result } } , function(err , apartments ){
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))
