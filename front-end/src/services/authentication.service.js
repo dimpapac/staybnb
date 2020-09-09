@@ -60,6 +60,5 @@ function registerUser(username, password, email, firstName, lastName) {
 }
 
 function logout() {
-	localStorage.removeItem('token');
-	localStorage.removeItem('username');
+	localStorage.removeItem('user');
 }

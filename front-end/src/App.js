@@ -30,7 +30,7 @@ class App extends Component
     render() {
       return (
         <div>
-          <NavBar/>
+          <NavBar history={this.props.history}/>
           <Switch >
             <Route exact path='/' component={MainPage} history={this.props.history} />
             <Route path='/apartments' component={ApartmentList} history={this.props.history} />
