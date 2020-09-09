@@ -16,11 +16,12 @@ class NavBar extends Component {
             setShow: false,
             setShowReg: false,
             flag: true,
-            name: "",
-            surname: "",
+            flagReg: true,
             username: "",
-            email: "",
             password: "",
+            firstName: "",
+            lastName: "",
+            email: "",
             newusername: "",
             password1: "",
             password2: ""
@@ -86,6 +87,39 @@ class NavBar extends Component {
         event.preventDefault();
     };
 
+    handleRegister = (event) => {
+        // console.log('Submitting...', u, p)
+
+        // console.log(this.state.name)
+        // console.log(this.state.surname)
+        // console.log(this.state.email)
+
+
+        if (this.state.password1 !== this.state.password2) {
+            this.setState({
+                flagReg: false
+            })
+        }
+        else {
+            // console.log(this.state.firstName, this.state.lastName)
+            authenticationService.registerUser(this.state.newusername, this.state.password1, this.state.email, this.state.firstName, this.state.lastName)
+                .then(
+                    text => {
+                        console.log(text)
+                        this.setState({flagReg: true})
+                        this.handleCloseReg()
+                    },
+                    error => {
+                        console.log("wrong input")
+                        this.setState({flagReg: false});
+                        
+                    }
+            );
+        }
+
+        event.preventDefault();
+    };
+
 
     render() { 
         return (
@@ -113,14 +147,14 @@ class NavBar extends Component {
                               <Modal.Title className= "w-100">Εγγραφή</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <form onSubmit={this.handleLogin}>
+                                <form onSubmit={this.handleRegister}>
                                   <div className="form-group">
                                     <label for="username">Όνομα</label>
-                                      <input type="text" className="form-control" value={this.state.name} onChange={this.handleTextArea} name="name"  placeholder="Name"/>
+                                      <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleTextArea} name="firstName"  placeholder="Ιωάννης"/>
                                   </div>
                                   <div className="form-group">
                                     <label for="username">Επώνυμο </label>
-                                      <input type="text" className="form-control" value={this.state.surname} onChange={this.handleTextArea} name="surname"  placeholder="Surname"/>
+                                      <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleTextArea} name="lastName"  placeholder="Σκούρας"/>
                                   </div>
                                   <div className="form-group">
                                     <label for="username">Email*</label>
@@ -141,7 +175,7 @@ class NavBar extends Component {
                                   <button className="btn btn-primary w-100" type="submit" >
                                     Εγγραφή
                                   </button>
-                                    {!this.state.flag &&
+                                    {!this.state.flagReg &&
                                         <div className="mt-2 alert alert-danger">
                                             <strong>Διαφορετικοί κωδικοί Χρήστη</strong>
                                         </div>

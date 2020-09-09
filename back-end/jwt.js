@@ -9,7 +9,7 @@ function jwt() {
 	return expressJwt({ secret, isRevoked , algorithms: ['HS256'] }).unless({
 		path: [
 			'/staybnb/api/login',
-			'staybnb/api/registerUser',
+			'/staybnb/api/registerUser',
 			'/staybnb/api/health-check',
 			/^\/staybnb\/api\/apartments\/available\/.*/
 		]
