@@ -1,25 +1,81 @@
-import React, { useEffect, useRef } from 'react';
-import { GoogleMap , withScriptjs , withGoogleMap } from "react-google-maps"
+import React, { Component , useEffect, useRef , useState } from 'react';
+import { GoogleMap , withScriptjs , withGoogleMap , Marker , InfoWindow } from "react-google-maps"
+import Carousel from "./Carousel"
 
-function GMap(props)
+
+class GMap extends Component 
 {
-  return (
-    <div style={{width: '40%',height: '100vh',float :"right"}}>
-      <WrappedMap 
-      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAeur1jFduk6ZSJT0nRAh7rzTIDsfylvVY`} 
-      loadingElement = {<div style={{ height : "100%" }}/> }
-      containerElement = {<div style={{ height : "100%" }}/> }
-      mapElement = {<div style={{ height : "100%" }}/> }
-      />
-    </div>
-  )
-}
+  constructor (props , context) {
+    super( props , context )
+    this.state = {
+        apartments : props.apartments,
+        mapLoading : true 
+    }
+  }
 
-function Map() {
-  return (
-    <GoogleMap defaultZoom={10} defaultCenter={{lat:12,lng: 12 }} />
-  );
+  componentDidMount(){
+    this.setState({
+        mapLoading : false
+    })
+  }
+  
+  render() {
+
+    const WrappedMap = withScriptjs(withGoogleMap(Map))
+
+    const apartments = this.state.apartments
+
+    function Map() {
+
+      const [selectedApartment , setSelectedApartment] = useState(null);
+
+      return (
+        <GoogleMap defaultZoom={10} defaultCenter={{lat : apartments[0].location['latitude'] , lng : apartments[0].location['longitude']}} >
+          {apartments.map((apartment)=> (
+            <Marker 
+            key = {apartment._id}
+            position={{lat:apartment.location['latitude'],lng: apartment.location['longitude']}}
+            onClick={() => {
+              setSelectedApartment(apartment);
+            }}
+            />
+          ))}
+
+
+          {selectedApartment && (
+            <InfoWindow
+            position={{lat:selectedApartment.location['latitude'],lng: selectedApartment.location['longitude']}}
+
+
+            onCloseClick = {() => {
+              setSelectedApartment(null);
+            }}
+            >
+              <div>
+                <h4>{selectedApartment.title}</h4>
+                <p>{selectedApartment.price}$ per night</p>
+              </div>
+            </InfoWindow>
+          )}
+
+        </GoogleMap>
+      );
+    }
+
+    return (
+      <div style={{width: '45%',height: '90vh',float :"right",marginRight:"10px"}}>
+      {(!this.state.mapLoading) && (
+        <WrappedMap 
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAeur1jFduk6ZSJT0nRAh7rzTIDsfylvVY`} 
+        loadingElement = {<div style={{ height : "100%" }}/> }
+        containerElement = {<div style={{ height : "100%" }}/> }
+        mapElement = {<div style={{ height : "100%" }}/> }
+        />
+      )}
+      </div>
+    )
+  }
+
 }
-const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 export default GMap;

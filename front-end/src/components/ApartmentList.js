@@ -72,7 +72,7 @@ class ApartmentList extends Component {
         return (
             <div style = {{ marginTop : "10px"}}>
                 {!this.state.no_result && !this.state.no_posts && ( 
-					<div class ="float-left" className = "scrolls" style={{width:"55%",float:"left"}}>
+					<div class ="float-left" className = "scrolls" style={{width:"50%",float:"left",marginLeft:"10px"}}>
 						{this.state.apartments.map((apartment) => {//Loop through every row of the json file and get the attributes
 							return (
 								<div key = {apartment._id}>
@@ -88,7 +88,7 @@ class ApartmentList extends Component {
                 
 
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
-					<Gmap coordinates = {this.state.coordinates} size={{ width:'35%', height:'65%', marginLeft:'63%', position: 'absolute'}} />
+					<Gmap apartments = {this.state.apartments} size={{ width:'40%', height:'30%', marginLeft:'63%'}} />
                 )}  
 
             </div>
