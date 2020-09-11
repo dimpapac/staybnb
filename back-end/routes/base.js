@@ -117,7 +117,6 @@ router.post('/registerUser', function(req, res, next) {
 	// validate
 	const format = req.query.format
     db.Users.findOne({ username: req.body.username } , function(err,user) {
-		console.log(user)
 		if ( user != null ){
 			if (format && format === "xml")
 				res.status(400).send(json2xml({ error: 'Username is Taken' }))
