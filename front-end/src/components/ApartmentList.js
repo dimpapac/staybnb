@@ -69,6 +69,7 @@ class ApartmentList extends Component {
     }
 
     render() { 
+
         return (
             <div style = {{ marginTop : "10px"}}>
                 {!this.state.no_result && !this.state.no_posts && ( 

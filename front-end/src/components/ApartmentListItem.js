@@ -11,13 +11,14 @@ class ApartmentListItem extends Component {
     }
 
     render() { 
+        
         return (
             <div>
                 <a href="#" class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
                 <div class="row">
                     <div style={{width : "15pc"}}>
                         {/* <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/don_quixote.jpg" class="img-fluid" alt="quixote"/> */}
-                        <Carousel/>
+                        <Carousel apartment={this.state.info} />
                     </div>
                     <div class="col-sm-8">
                             <div class="d-flex w-100 justify-content-between " style={{marginBottom : "10%"}}>
