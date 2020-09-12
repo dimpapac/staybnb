@@ -6,9 +6,12 @@ import Modal from 'react-bootstrap/Modal'
 import { withRouter } from 'react-router'
 
 import AutoCompleteLoc from './AutoCompleteLoc'
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from  "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+
+import el from 'date-fns/locale/el';
+registerLocale('el', el)
 
 class SearchBar extends Component {
 
@@ -17,13 +20,14 @@ class SearchBar extends Component {
         this.state = {
             show: false,
             setShow: false,
-            startDate: new Date(),
-            location: " "
+            startDate: null,
+            endDate: null,
+            location: ""
         }
 
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
 
     } 
 
@@ -32,9 +36,11 @@ class SearchBar extends Component {
     }
 
 
-    handleChange = date => {
+    handleChange = dates => {
+        const [start, end] = dates;
         this.setState({
-            startDate: date
+            startDate: start,
+            endDate: end
         });
     };
 
@@ -54,15 +60,26 @@ class SearchBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <button onClick={() => this.handleSearchButton("/apartments")} >Search</button>
+                <button onClick={() => this.handleSearchButton("/apartments")}>Search</button>
                 <form>
-                    <div className="form-row">
-                        <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location"/>
+                    <div className="form-row mx-auto">
+                        <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
                         <DatePicker
+                            placeholderText="Επιλέξτε ημερομηνίες"
                             selected={this.state.startDate}
                             onChange={this.handleChange}
-                            dateFormat="dd/MM/yyyy"
+                            dateFormat="DD/MM/YYYY"
+                            monthsShown={2}
+                            minDate={new Date()}
+                            startDate={this.state.startDate}
+                            endDate={this.state.endDate}
+                            selectsRange
+                            inline
+                            isClearable
+                            required
+                            locale="el"
                         />
+
                     </div>
                 </form>
                 
