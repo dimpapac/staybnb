@@ -8,7 +8,7 @@ class GMap extends Component
   constructor (props , context) {
     super( props , context )
     this.state = {
-        apartments : props.apartments,
+        ads : props.ads,
         mapLoading : true 
     }
   }
@@ -23,37 +23,37 @@ class GMap extends Component
 
     const WrappedMap = withScriptjs(withGoogleMap(Map))
 
-    const apartments = this.state.apartments
+    const ads = this.state.ads
 
     function Map() {
 
-      const [selectedApartment , setSelectedApartment] = useState(null);
+      const [selectedAd , setSelectedAd ] = useState(null);
 
       return (
-        <GoogleMap defaultZoom={10} defaultCenter={{lat : apartments[0].location['latitude'] , lng : apartments[0].location['longitude']}} >
-          {apartments.map((apartment)=> (
+        <GoogleMap defaultZoom={10} defaultCenter={{lat : ads[0].location['latitude'] , lng : ads[0].location['longitude']}} >
+          {ads.map((ad)=> (
             <Marker 
-            key = {apartment._id}
-            position={{lat:apartment.location['latitude'],lng: apartment.location['longitude']}}
+            key = {ad._id}
+            position={{lat:ad.location['latitude'],lng: ad.location['longitude']}}
             onClick={() => {
-              setSelectedApartment(apartment);
+              setSelectedAd(ad);
             }}
             />
           ))}
 
 
-          {selectedApartment && (
+          {selectedAd && (
             <InfoWindow
-            position={{lat:selectedApartment.location['latitude'],lng: selectedApartment.location['longitude']}}
+            position={{lat:selectedAd.location['latitude'],lng: selectedAd.location['longitude']}}
 
 
             onCloseClick = {() => {
-              setSelectedApartment(null);
+              setSelectedAd(null);
             }}
             >
               <div>
-                <h4>{selectedApartment.title}</h4>
-                <p>{selectedApartment.price}$ per night</p>
+                <h4>{selectedAd.title}</h4>
+                <p>{selectedAd.price}$ per night</p>
               </div>
             </InfoWindow>
           )}
@@ -63,7 +63,7 @@ class GMap extends Component
     }
 
     return (
-      <div style={{width: '45%',height: '90vh',float :"right",marginRight:"10px"}}>
+      <div style={{width: '38%',height: '90vh',float :"right",marginRight:"10px"}}>
       {(!this.state.mapLoading) && (
         <WrappedMap 
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAeur1jFduk6ZSJT0nRAh7rzTIDsfylvVY`} 

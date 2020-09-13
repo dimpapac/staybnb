@@ -80,39 +80,6 @@ router.post('/login', function(req, res, next) {
 	});
 });
 
-// login user
-router.post('/login', function(req, res, next) {
-
-	const format = req.query.format
-	db.Users.findOne({ username: req.body.username }, function(err, user) {
-		comparePass(user, req.body.password)
-			.then(userRes => {
-				if (userRes) {
-					db.Users.update(
-						{ _id: userRes._id },
-						{
-							$set: {
-								lastLoggedIn: new Date()
-							}
-						}
-					, function(err, user) {
-						if (format && format === "xml")
-							res.send(json2xml(userRes))
-						else
-							res.json(userRes)
-					});
-				}
-				else {
-					if (format && format === "xml")
-						res.status(400).send(json2xml({ error: 'Username or password is incorrect' }))
-					else
-						res.status(400).json({ error: 'Username or password is incorrect' })
-				}
-			})
-			.catch(err => next(err));
-	});
-});
-
 router.post('/registerUser', function(req, res, next) {
 	// validate
 	const format = req.query.format
@@ -124,7 +91,7 @@ router.post('/registerUser', function(req, res, next) {
 				res.status(400).json({ error: 'Username is Taken' })
 		}
 		else{
-			db.Users.insert(
+			db.Apartments.insert(
 				{ 
 					username: req.body.username ,
 					passwordHash : bcrypt.hashSync(req.body.password) , 

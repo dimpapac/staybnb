@@ -4,7 +4,7 @@ import NavBar from './components/NavBar'
 import './App.css';
 // import SearchBar from './components/SearchBar';
 import { withRouter } from 'react-router'
-import ApartmentList from './components/ApartmentList'
+import AdList from './components/AdList'
 import MainPage from './components/MainPage'
 import Help from './components/Help'
 
@@ -33,7 +33,7 @@ class App extends Component
           <NavBar history={this.props.history}/>
           <Switch >
             <Route exact path='/' component={MainPage} history={this.props.history} />
-            <Route path='/apartments' component={ApartmentList} history={this.props.history} />
+            <Route path='/ads' component={AdList} history={this.props.history} />
             <Route path='/help' component={Help} history={this.props.history} />
           </Switch>
         </div>

@@ -1,7 +1,7 @@
 import apiUrl from './apiUrl'
 
-export const apartmentService = {
-	get_available_apartments
+export const adService = {
+	get_available_ads
 };
 
 
@@ -18,7 +18,7 @@ function handleResponse(response) {
 }
 
 
-function get_available_apartments(start, count , startDate , endDate ) { //only control center makes this call
+function get_available_ads(start, count , startDate , endDate ) { //only control center makes this call
 
 	const requestOptions = {
 		mode: 'cors',
@@ -26,7 +26,7 @@ function get_available_apartments(start, count , startDate , endDate ) { //only 
         headers : {"Content-Type" : 'application/json'  }
 	};  
 
-    return fetch(`${apiUrl}/apartments/available/?start=${start}&count=${count}&startDate=${startDate}&endDate=${endDate}`, requestOptions)
+    return fetch(`${apiUrl}/ads/available/?start=${start}&count=${count}&startDate=${startDate}&endDate=${endDate}`, requestOptions)
     .then(response => response.json())
     .then(response => {
         return response;

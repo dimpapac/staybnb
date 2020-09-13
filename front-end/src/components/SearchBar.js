@@ -60,7 +60,7 @@ class SearchBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <button onClick={() => this.handleSearchButton("/apartments")}>Search</button>
+                <button onClick={() => this.handleSearchButton("/ads")}>Search</button>
                 <form>
                     <div className="form-row mx-auto">
                         <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>

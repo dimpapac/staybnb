@@ -5,7 +5,7 @@ class Carousel extends Component {
     constructor (props , context) {
         super( props , context )
         this.state = {
-            apartment : props.apartment,
+            ad : props.ad,
             photos : ["https://source.unsplash.com/random"],
             loading : false
         }
@@ -18,9 +18,9 @@ class Carousel extends Component {
     }
 
     render() { 
-        const apartment = this.state.apartment
-        const id = "a" + apartment._id
-        const ref = "#a" + apartment._id
+        const ad = this.state.ad
+        const id = "a" + ad._id
+        const ref = "#a" + ad._id
 
         console.log(ref)
         return (

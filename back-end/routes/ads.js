@@ -5,6 +5,31 @@ const express = require('express');
 const json2xml = require('json2xml');
 const jwt = require('jsonwebtoken');
 const mongojs = require('mongojs');
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+	destination: function(req,file,cb){
+		cb(null,'./uploads/');
+	},
+	filename: function(req,file,cb){
+		cb(null,new Date().toISOString() + file.originalname )
+	}
+});
+
+const fileFilter = (req,file,cb) => {
+	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png')
+		cb(null,true);
+	else
+		cb(new Error("file has to be png or jpeg"),false);
+};
+
+const upload = multer({
+	storage : storage ,
+	limits : {
+		fileSize : 1024 * 1024 * 5
+	},
+	fileFilter : fileFilter
+})
 
 // import files
 const config = require('../config.json');
@@ -16,13 +41,13 @@ const router = express.Router();
 
 /* routes */
 
-// GET all apartments
+// GET all ads
 router.get('/', function(req, res, next) {
 
 	const format = req.query.format;
 	const start = parseInt(req.query.start);
 	const count = parseInt(req.query.count);
-	db.Apartments.find({}).limit(count).skip(start, function(err, apartments) {
+	db.Ads.find({}).limit(count).skip(start, function(err, ads) {
 		if (err) {
 			if (format && format === "xml")
 				res.send(json2xml(err))
@@ -31,13 +56,13 @@ router.get('/', function(req, res, next) {
 			return;
 		}
 		if (format && format === "xml")
-			res.send(json2xml(apartments))
+			res.send(json2xml(ads))
 		else
-			res.json(apartments)
+			res.json(ads)
 	});
 });
 
-// GET all available apartments in dates given
+// GET all available ads in dates given
 router.get('/available', function(req, res, next) {
 	const format = req.query.format;
 	const start = parseInt(req.query.start);
@@ -61,7 +86,7 @@ router.get('/available', function(req, res, next) {
 		else {
 			let result = invalidBookings.map(a => mongojs.ObjectID(a.apartmentId) )
 			console.log(result)
-			db.Apartments.find( { _id : { $nin: result } } , function(err , apartments ){
+			db.Ads.find( { _id : { $nin: result } } , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))
@@ -71,15 +96,28 @@ router.get('/available', function(req, res, next) {
 				}
 				else{
 					if (format && format === "xml")
-						res.send(json2xml(apartments))
+						res.send(json2xml(ads))
 					else
-						res.json(apartments)
+						res.json(ads)
 				}
 			})
 		}
 	});
 });
 
+router.post("/newAd",upload.array('productImage'),function(req,res,next){
+	const format = req.query.format;
 
+	const photos = []
+	req.files.map((file) => {
+		photos.push(file.path)
+	})
+
+
+	if (format && format === "xml")
+		res.send(json2xml(photos))
+	else
+		res.json(photos)
+})
 
 module.exports = router;

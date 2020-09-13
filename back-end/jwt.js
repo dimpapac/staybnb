@@ -11,7 +11,7 @@ function jwt() {
 			'/staybnb/api/login',
 			'/staybnb/api/registerUser',
 			'/staybnb/api/health-check',
-			/^\/staybnb\/api\/apartments\/available\/.*/
+			/^\/staybnb\/api\/ads\/available\/.*/
 		]
 	});
 

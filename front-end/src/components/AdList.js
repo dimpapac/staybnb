@@ -4,14 +4,14 @@ import '../css/searchbar.css';
 import { Button } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 
-import ApartmentListItem from './ApartmentListItem'
+import AdListItem from './AdListItem'
 import Gmap from './Gmap'
 
-import { apartmentService } from '../services/apartment.service'
+import { adService } from '../services/ad.service'
 
 
 
-class ApartmentList extends Component {
+class AdList extends Component {
 
     constructor (props , context) {
         super( props , context )
@@ -21,7 +21,7 @@ class ApartmentList extends Component {
             endDate : "13-05-2020",
             no_posts: true,
             visiblePosts: 0,
-            apartments : [],
+            ads : [],
             no_result : true,
             coordinates : [],
             isloading : true
@@ -39,20 +39,20 @@ class ApartmentList extends Component {
         let coordinates = [] //array of objects of coordinates
         
 
-        apartmentService.get_available_apartments(0,10,this.state.startDate, this.state.endDate)
+        adService.get_available_ads(0,10,this.state.startDate, this.state.endDate)
         .then( response => {
             this.setState({
-                apartments : response,
+                ads : response,
                 no_posts : false,
                 visiblePosts: this.state.visiblePosts + 8,
                 no_result : false
             })
 
-            this.state.apartments.forEach(apartment => { /*Loop through every row of the jsonfile and get the attributes*/
+            this.state.ads.forEach(ad => { /*Loop through every row of the jsonfile and get the attributes*/
                 /*define the new coordinate */
                 coordinate = {}
-                coordinate['lat'] = apartment.location['latitude']
-                coordinate['lng'] = apartment.location['longitude']    
+                coordinate['lat'] = ad.location['latitude']
+                coordinate['lng'] = ad.location['longitude']    
                 /* Push it to the array of coordinates */
                 coordinates.push(coordinate)
             })
@@ -73,12 +73,13 @@ class ApartmentList extends Component {
         return (
             <div style = {{ marginTop : "10px"}}>
                 {!this.state.no_result && !this.state.no_posts && ( 
-					<div class ="float-left" className = "scrolls" style={{width:"50%",float:"left",marginLeft:"10px"}}>
-						{this.state.apartments.map((apartment) => {//Loop through every row of the json file and get the attributes
+					<div class ="float-left" className = "scrolls" style={{width:"60%",float:"left",marginLeft:"10px"}}>
+						{this.state.ads.map((ad) => {//Loop through every row of the json file and get the attributes
 							return (
-								<div key = {apartment._id}>
-									<ApartmentListItem // Render the same Component with different values each time 
-										apartment = {apartment}
+								<div key = {ad._id}>
+                                    <AdListItem // Render the same Component with different values each time 
+                                        history = {this.props.history}
+										ad = {ad}
 										style = {{marginLeft: '30%'}} 
 									/>
 								</div>
@@ -89,7 +90,7 @@ class ApartmentList extends Component {
                 
 
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
-					<Gmap apartments = {this.state.apartments} size={{ width:'40%', height:'30%', marginLeft:'63%'}} />
+					<Gmap ads = {this.state.ads} size={{ width:'30%', height:'30%', marginLeft:'63%'}} />
                 )}  
 
             </div>
@@ -97,4 +98,4 @@ class ApartmentList extends Component {
     }
 }
 
-export default ApartmentList
+export default AdList
