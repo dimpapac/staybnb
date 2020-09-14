@@ -167,10 +167,12 @@ class AdList extends Component {
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
 					<Gmap ads = {this.state.ads} size={{ width:'30%', height:'30%', marginLeft:'63%'}} />
                 )}  
+                {!this.state.no_result && !this.state.no_posts &&  (
                 <div class="bottom-align-text text-center">
                         <button type="button" class="btn btn-outline-secondary" onClick={this.loadprev} >Prev Page</button>
                         <button type="button" class="btn btn-outline-secondary" onClick={this.loadnext} >Next Page</button>
                 </div>
+                )}
 
             </div>
         )
