@@ -6,23 +6,24 @@ class Carousel extends Component {
         super( props , context )
         this.state = {
             ad : props.ad,
-            photos : ["https://source.unsplash.com/random"],
+            photos : props.ad.photos,
             loading : false
         }
     }
 
     componentDidMount(){
+        
         this.setState({
             loading : true
         })
+
+
     }
 
     render() { 
         const ad = this.state.ad
         const id = "a" + ad._id
         const ref = "#a" + ad._id
-
-        console.log(ref)
         return (
             <div>
             { (this.state.loading) && (
@@ -32,18 +33,25 @@ class Carousel extends Component {
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     {/* <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> */}
                 </ol>
+
+                <div>
+                { (this.state.photos.length > 0) && (
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                    <img class="d-block w-100 img-fluid" style={{height: "12pc"}} src="https://source.unsplash.com/random" alt="First slide"/>
+                    <img class="d-block w-100 img-fluid" style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + this.state.photos[0]}  alt="First slide"/>
                     </div>
-                    {this.state.photos.map((photo) => {//Loop through every row of the json file and get the attributes
+                    {(this.state.photos.length > 1) && (this.state.photos.map((photo) => {//Loop through every row of the json file and get the attributes
                         return (
                             <div class="carousel-item">
-                                <img class="d-block w-100 img-fluid"  style={{height: "12pc"}} src={photo}  alt="Second slide"/>
+                                <img class="d-block w-100 img-fluid"  style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + photo}  alt="Second slide"/>
                             </div>
                         )     			
-                    })}	
+                    }))}	
                 </div>
+                )}
+                </div>
+
+
                 <a class="carousel-control-prev" href={ref} role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>

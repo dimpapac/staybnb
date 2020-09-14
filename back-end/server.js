@@ -35,6 +35,7 @@ app.use(bodyParser.json({limit: '50mb', extended: true}));
 
 app.use('/staybnb/api/', base);
 app.use('/staybnb/api/ads', ads);
+app.use('uploads/',express.static('uploads'));
 
 
 server = https.createServer(options, app).listen(port, function(){

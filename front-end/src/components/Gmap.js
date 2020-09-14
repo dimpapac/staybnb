@@ -28,7 +28,6 @@ class GMap extends Component
     function Map() {
 
       const [selectedAd , setSelectedAd ] = useState(null);
-
       return (
         <GoogleMap defaultZoom={10} defaultCenter={{lat : ads[0].location['latitude'] , lng : ads[0].location['longitude']}} >
           {ads.map((ad)=> (

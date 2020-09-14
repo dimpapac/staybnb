@@ -8,10 +8,7 @@ function jwt() {
 	const secret = config.secret;
 	return expressJwt({ secret, isRevoked , algorithms: ['HS256'] }).unless({
 		path: [
-			'/staybnb/api/login',
-			'/staybnb/api/registerUser',
-			'/staybnb/api/health-check',
-			/^\/staybnb\/api\/ads\/available\/.*/
+			/^\/staybnb\/api\/.*/
 		]
 	});
 

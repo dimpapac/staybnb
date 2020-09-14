@@ -9,10 +9,10 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
 	destination: function(req,file,cb){
-		cb(null,'./uploads/');
+		cb(null,'uploads/');
 	},
 	filename: function(req,file,cb){
-		cb(null,new Date().toISOString() + file.originalname )
+		cb(null,file.originalname)
 	}
 });
 
@@ -84,8 +84,7 @@ router.get('/available', function(req, res, next) {
 			return;
 		}
 		else {
-			let result = invalidBookings.map(a => mongojs.ObjectID(a.apartmentId) )
-			console.log(result)
+			let result = invalidBookings.map(a => mongojs.ObjectID(a._id) )
 			db.Ads.find( { _id : { $nin: result } } , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
@@ -108,16 +107,53 @@ router.get('/available', function(req, res, next) {
 router.post("/newAd",upload.array('productImage'),function(req,res,next){
 	const format = req.query.format;
 
+	console.log(req.files)
+
 	const photos = []
 	req.files.map((file) => {
-		photos.push(file.path)
+		photos.push(file.originalname)
 	})
 
 
-	if (format && format === "xml")
-		res.send(json2xml(photos))
-	else
-		res.json(photos)
+	db.Ads.insert(
+		{ 
+			title: req.body.title ,
+			price : req.body.price, 
+			photos: photos,
+			location: {
+				adress: req.body.adress ,
+				longitude: parseFloat(req.body.longitude),
+				latitude: parseFloat(req.body.latitude)
+			},
+			description: req.body.description
+		}
+		 ,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "ad registered"}))
+			else
+				res.send({ text : "ad registered"});
+			return;
+		}
+	})
 })
 
 module.exports = router;
+
+
+// GET all ads
+router.get('/uploads', function(req, res, next) {
+
+	const format = req.query.format;
+	const fileName = req.query.fileName;
+
+	res.sendFile( fileName, { root: './uploads' });
+
+});
