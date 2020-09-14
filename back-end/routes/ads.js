@@ -74,8 +74,7 @@ router.get('/available', function(req, res, next) {
 		$or : [ {$and : [ { 'bookedFrom' : { $gt : new Date(startDate) }  } , { 'bookedFrom' : { $lt : new Date(endDate) }  } ] } ,
 		{$and : [ { 'bookedTill' : { $gt : new Date(startDate) }  } , { 'bookedTill' : { $lt : new Date(endDate) }  } ] } ,
 		{$and : [ { 'bookedTill' : { $gte : new Date(endDate) }  } , { 'bookedFrom' : { $lte : new Date(startDate) }  } ] }] 
-		})
-	.limit(count).skip(start, function(err, invalidBookings) {
+		}, function(err, invalidBookings) {
 		if (err) {
 			if (format && format === "xml")
 				res.send(json2xml(err))
@@ -85,7 +84,7 @@ router.get('/available', function(req, res, next) {
 		}
 		else {
 			let result = invalidBookings.map(a => mongojs.ObjectID(a._id) )
-			db.Ads.find( { _id : { $nin: result } } , function(err , ads ){
+			db.Ads.find( { _id : { $nin: result } }).limit(count).skip(start , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))

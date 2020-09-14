@@ -30,8 +30,11 @@ class Carousel extends Component {
             <div id={id} class="carousel slide" data-interval="false" style={{height: "12pc"}}>
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    {/* <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> */}
+                    {this.state.photos.slice(1).map((photo) => {
+                        return (
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        )
+                    })}
                 </ol>
 
                 <div>
@@ -40,7 +43,7 @@ class Carousel extends Component {
                     <div class="carousel-item active">
                     <img class="d-block w-100 img-fluid" style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + this.state.photos[0]}  alt="First slide"/>
                     </div>
-                    {(this.state.photos.length > 1) && (this.state.photos.map((photo) => {//Loop through every row of the json file and get the attributes
+                    {(this.state.photos.length > 1) && (this.state.photos.slice(1).map((photo) => {//Loop through every row of the json file and get the attributes
                         return (
                             <div class="carousel-item">
                                 <img class="d-block w-100 img-fluid"  style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + photo}  alt="Second slide"/>
