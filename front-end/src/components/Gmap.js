@@ -68,7 +68,7 @@ class GMap extends Component
     }
 
     return (
-      <div style={{width: '38%',height: '90vh',float :"right",marginRight:"10px"}}>
+      <div style={{width: '48%',height: '90vh',float :"right",marginRight:"10px"}}>
       {(!this.state.mapLoading) && (
         <WrappedMap 
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAeur1jFduk6ZSJT0nRAh7rzTIDsfylvVY`} 

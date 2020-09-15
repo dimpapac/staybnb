@@ -29,17 +29,17 @@ class AdListItem extends Component {
             <div  style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
                 <a class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
                 <div class="row">
-                    <div style={{width : "17pc"}}>
+                    <div class="float-left" style={{width : "17pc"}}>
                         {/* <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/don_quixote.jpg" class="img-fluid" alt="quixote"/> */}
                         <Carousel ad={this.state.info} />
                     </div>
                     <div onClick={ () => {
                         this.props.history.push('/');
                     }}
-                    class="col-sm-8">
+                    class="col-sm-7 float-right" > 
                             <div class="d-flex w-100 justify-content-between " style={{marginBottom : "10%"}}>
                                 <h5 class="mb-1">{this.state.info.title}</h5>
-                                <p class="mb-1 ">address</p>
+                                <p class="mb-1 ">{this.state.info.location.address}</p>
                             </div>
                             <p class="mb-1 ">{this.state.info.description}</p>
                     </div>
