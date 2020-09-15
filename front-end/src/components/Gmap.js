@@ -5,6 +5,7 @@ import Carousel from "./Carousel"
 
 class GMap extends Component 
 {
+  
   constructor (props , context) {
     super( props , context )
     this.state = {
@@ -18,15 +19,20 @@ class GMap extends Component
         mapLoading : false
     })
   }
+
+  componentDidUpdate(prevProps,prevState){
+    console.log(this.state.ads)
+    this.state.ads = this.props.ads
+    this.render()
+  }
   
   render() {
-
     const WrappedMap = withScriptjs(withGoogleMap(Map))
 
     const ads = this.state.ads
+    console.log(3)
 
-    function Map() {
-
+    function Map(  ) {
       const [selectedAd , setSelectedAd ] = useState(null);
       return (
         <GoogleMap defaultZoom={10} defaultCenter={{lat : ads[0].location['latitude'] , lng : ads[0].location['longitude']}} >
