@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Carousel from './Carousel'
-import Modal from 'react-bootstrap/Modal'
 
 class AdListItem extends Component {
 
@@ -27,14 +26,14 @@ class AdListItem extends Component {
         
         return (
             <div  style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
-                <a class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
+                <a key={this.state.info._id} class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
                 <div class="row">
                     <div class="float-left" style={{width : "17pc"}}>
-                        {/* <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/don_quixote.jpg" class="img-fluid" alt="quixote"/> */}
-                        <Carousel ad={this.state.info} />
+                        <Carousel ad={this.state.info} height={"12pc"} />
                     </div>
                     <div onClick={ () => {
-                        this.props.history.push('/');
+                        localStorage.setItem('ad', this.state.info._id);
+                        this.props.history.push('/preview');
                     }}
                     class="col-sm-7 float-right" > 
                             <div class="d-flex w-100 justify-content-between " style={{marginBottom : "10%"}}>

@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import logo from '../icons/mainlogo.png' 
 import '../css/searchbar.css';
-import { Button } from 'react-bootstrap'
-import Modal from 'react-bootstrap/Modal'
 
 import AdListItem from './AdListItem'
 import Gmap from './Gmap'
@@ -171,7 +168,7 @@ class AdList extends Component {
                 )}
 
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
-					<Gmap ads = {this.state.ads} size={{ width:'50%', height:'30%', marginLeft:'63%'}} />
+					<Gmap ads = {this.state.ads} height={"90vh"} width={"48%"} marginTop={"0px"} />
                 )}  
         
 

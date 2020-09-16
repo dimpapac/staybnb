@@ -7,7 +7,9 @@ class Carousel extends Component {
         this.state = {
             ad : props.ad,
             photos : props.ad.photos,
-            loading : false
+            loading : false,
+            height : props.height,
+            width : props.width
         }
     }
 
@@ -27,7 +29,7 @@ class Carousel extends Component {
         return (
             <div>
             { (this.state.loading) && (
-            <div id={id} class="carousel slide" data-interval="false" style={{height: "12pc"}}>
+            <div id={id} class="carousel slide" data-interval="false" style={{height: this.state.height}}>
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     {this.state.photos.slice(1).map((photo) => {
@@ -41,12 +43,12 @@ class Carousel extends Component {
                 { (this.state.photos.length > 0) && (
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                    <img class="d-block w-100 img-fluid" style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + this.state.photos[0]}  alt="First slide"/>
+                    <img class="d-block w-100 img-fluid" style={{height: this.state.height }} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + this.state.photos[0]}  alt="First slide"/>
                     </div>
                     {(this.state.photos.length > 1) && (this.state.photos.slice(1).map((photo) => {//Loop through every row of the json file and get the attributes
                         return (
                             <div class="carousel-item">
-                                <img class="d-block w-100 img-fluid"  style={{height: "12pc"}} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + photo}  alt="Second slide"/>
+                                <img class="d-block w-100 img-fluid"  style={{height: this.state.height }} src={ "https://localhost:9000/staybnb/api/ads/uploads?fileName=" + photo}  alt="Second slide"/>
                             </div>
                         )     			
                     }))}	

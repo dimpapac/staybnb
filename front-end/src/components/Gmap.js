@@ -10,7 +10,10 @@ class GMap extends Component
     super( props , context )
     this.state = {
         ads : props.ads,
-        mapLoading : true 
+        mapLoading : true,
+        height : props.height,
+        width: props.width,
+        marginTop : props.marginTop
     }
   }
 
@@ -68,7 +71,7 @@ class GMap extends Component
     }
 
     return (
-      <div style={{width: '48%',height: '90vh',float :"right",marginRight:"10px"}}>
+      <div style={{width: this.state.width ,height: this.state.height ,float :"right",marginRight:"10px",marginTop : this.state.marginTop}}>
       {(!this.state.mapLoading) && (
         <WrappedMap 
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAeur1jFduk6ZSJT0nRAh7rzTIDsfylvVY`} 

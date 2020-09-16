@@ -144,9 +144,6 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 	})
 })
 
-module.exports = router;
-
-
 // GET all ads
 router.get('/uploads', function(req, res, next) {
 
@@ -156,3 +153,30 @@ router.get('/uploads', function(req, res, next) {
 	res.sendFile( fileName, { root: './uploads' });
 
 });
+
+// GET all available ads in dates given
+router.get('/:id', function(req, res, next) {
+
+	const format = req.query.format;
+	let id = mongojs.ObjectID(req.params.id)
+
+	db.Ads.find({ _id : mongojs.ObjectID(req.params.id) }, function(err, ad) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else {
+			if (format && format === "xml")
+				res.send(json2xml(ad[0]))
+			else
+				res.json(ad[0])
+		}
+	});
+
+});
+
+
+module.exports = router;

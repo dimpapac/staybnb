@@ -1,7 +1,8 @@
 import apiUrl from './apiUrl'
 
 export const adService = {
-	get_available_ads
+    get_available_ads,
+    get_ad
 };
 
 
@@ -27,6 +28,22 @@ function get_available_ads(start, count , startDate , endDate ) { //only control
 	};  
 
     return fetch(`${apiUrl}/ads/available/?start=${start}&count=${count}&startDate=${startDate}&endDate=${endDate}`, requestOptions)
+    .then(response => response.json())
+    .then(response => {
+        return response;
+    });	
+
+}
+
+function get_ad(id ) { //only control center makes this call
+
+	const requestOptions = {
+		mode: 'cors',
+        method: 'GET',
+        headers : {"Content-Type" : 'application/json'  }
+	};  
+
+    return fetch(`${apiUrl}/ads/${id}`, requestOptions)
     .then(response => response.json())
     .then(response => {
         return response;
