@@ -75,7 +75,7 @@ class PhotoGrid extends Component {
             </div>
             )}
 
-            <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%"}} onClick={this.handleShow}>Περισσότερες Φωτογραφίες</button>
+            <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"10px"}} onClick={this.handleShow}>Περισσότερες Φωτογραφίες</button>
             <Modal size="lg" show={this.state.setShow} onHide={this.handleClose} >
                     <Modal.Header  closeButton >
                     </Modal.Header>
