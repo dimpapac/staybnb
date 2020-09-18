@@ -2,7 +2,8 @@ import apiUrl from './apiUrl'
 
 export const adService = {
     get_available_ads,
-    get_ad
+    get_ad,
+    add_booking
 };
 
 
@@ -49,5 +50,26 @@ function get_ad(id ) { //only control center makes this call
         return response;
     });	
 
+}
+
+function add_booking(hostId,renterId,adId,bookedFrom,bookedTill){
+    const requestOptions = {
+		mode: 'cors',
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ 
+			hostId,
+			renterId,
+			adId,
+			bookedFrom,
+			bookedTill
+		})
+	};
+
+	return fetch(`${apiUrl}/ads/addBooking`, requestOptions)
+		.then(handleResponse)
+		.then(text => {
+			return text;
+		})
 }
 

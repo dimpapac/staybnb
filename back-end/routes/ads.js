@@ -175,7 +175,35 @@ router.get('/:id', function(req, res, next) {
 				res.json(ad[0])
 		}
 	});
+});
 
+router.post("/addBooking",function(req, res, next){
+	const format = req.query.format
+	db.Bookings.insert(
+		{ 
+			hostId: mongojs.ObjectID(req.body.hostId),
+			renterId: mongojs.ObjectID(req.body.renterId),
+			adId: mongojs.ObjectID(req.body.adId),
+			bookedFrom: new Date(req.body.bookedFrom),
+			bookedTill: new Date(req.body.bookedTill)
+		}
+		,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "booking added"}))
+			else
+				res.send({ text : "booking added"});
+			return;
+		}
+	})
+	
 });
 
 

@@ -28,7 +28,7 @@ class BookingButton extends Component {
     } 
 
     handleClick(){
-        alert(this.state.startDate);
+       adService.add_booking("5e91cd73939fc496fa24a6f4","5e91cd73939fc496fa24a6f4","5f1f5e87e0420703781c10c7",this.state.startDate,this.state.endDate)
     };
 
 
