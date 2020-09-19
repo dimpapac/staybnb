@@ -1,0 +1,25 @@
+.button-minus,
+.button-plus {
+  font-weight: bold;
+  height: 38px;
+  padding: 0;
+  width: 38px;
+  position: relative;
+}
+
+input[type="number"] {
+  position: relative;
+  height: 38px;
+  text-align: center;
+  width: 58px;
+  display: inline-block;
+  font-size: 13px;
+  resize: vertical;
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

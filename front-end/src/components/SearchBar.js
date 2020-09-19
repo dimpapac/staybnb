@@ -22,12 +22,15 @@ class SearchBar extends Component {
             setShow: false,
             startDate: null,
             endDate: null,
-            location: ""
+            location: "",
+            visitors: 1
         }
 
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleMinus = this.handleMinus.bind(this);
+        this.handlePlus = this.handlePlus.bind(this);
 
     } 
 
@@ -57,6 +60,18 @@ class SearchBar extends Component {
             })
     };
 
+    handleMinus(){
+        this.state.visitors > 1 && this.setState({
+            visitors : this.state.visitors - 1
+        })
+    }
+
+    handlePlus(){
+        this.setState({
+            visitors : this.state.visitors + 1
+        })
+    }
+
     render() { 
         return (
             <React.Fragment>
@@ -79,7 +94,9 @@ class SearchBar extends Component {
                             required
                             locale="el"
                         />
-
+                        <input type="button" value="-" className="button-minus" data-field="quantity" onClick={this.handleMinus}/>
+                        <input type="number" step="1" min="1" value={this.state.visitors} name="quantity" className="quantity-field"/>
+                        <input type="button" value="+" className="button-plus" data-field="quantity" onClick={this.handlePlus}/>
                     </div>
                 </form>
                 
