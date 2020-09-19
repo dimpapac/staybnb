@@ -8,6 +8,7 @@ import AdList from './components/AdList'
 import MainPage from './components/MainPage'
 import Help from './components/Help'
 import AdPreview from './components/AdPreview'
+import AdRegister from './components/AdRegister'
 
 import { Switch, Route , Redirect} from 'react-router-dom'
 
@@ -37,6 +38,7 @@ class App extends Component
             <Route path='/ads' component={AdList} history={this.props.history} />
             <Route path='/help' component={Help} history={this.props.history} />
             <Route path='/preview' component={AdPreview} history={this.props.history} />
+            <Route path='/newAd' component={AdRegister} history={this.props.history} />
           </Switch>
         </div>
       );

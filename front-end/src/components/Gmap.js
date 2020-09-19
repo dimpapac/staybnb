@@ -13,9 +13,12 @@ class GMap extends Component
         mapLoading : true,
         height : props.height,
         width: props.width,
-        marginTop : props.marginTop
+        marginTop : props.marginTop,
+        withMarkers : props.withMarkers,
+        lat : null
     }
   }
+
 
   componentDidMount(){
     this.setState({
@@ -28,16 +31,26 @@ class GMap extends Component
     this.state.ads = this.props.ads
     this.render()
   }
-  
+
   render() {
+
     const WrappedMap = withScriptjs(withGoogleMap(Map))
 
     const ads = this.state.ads
-    console.log(3)
+    const wm = this.state.withMarkers
 
-    function Map(  ) {
+
+    const handleClick = (event) => {
+      this.props.action(event.latLng.lat(),event.latLng.lng())
+    }
+
+    
+
+    function Map() {
       const [selectedAd , setSelectedAd ] = useState(null);
       return (
+        <div>
+        { wm &&(
         <GoogleMap defaultZoom={10} defaultCenter={{lat : ads[0].location['latitude'] , lng : ads[0].location['longitude']}} >
           {ads.map((ad)=> (
             <Marker 
@@ -65,8 +78,16 @@ class GMap extends Component
               </div>
             </InfoWindow>
           )}
-
+          )
         </GoogleMap>
+        )}
+
+        {!wm && (
+           <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : 38 , lng : 23 }} >
+           </GoogleMap>
+        )}
+
+        </div>
       );
     }
 

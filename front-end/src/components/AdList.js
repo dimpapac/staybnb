@@ -168,7 +168,7 @@ class AdList extends Component {
                 )}
 
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
-					<Gmap ads = {this.state.ads} height={"90vh"} width={"48%"} marginTop={"0px"} />
+					<Gmap withMarkers={true} ads = {this.state.ads} height={"90vh"} width={"48%"} marginTop={"0px"} />
                 )}  
         
 

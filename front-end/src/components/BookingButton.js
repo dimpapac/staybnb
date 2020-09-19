@@ -28,20 +28,24 @@ class BookingButton extends Component {
     } 
 
     handleClick(){
-       adService.add_booking("5e91cd73939fc496fa24a6f4","5e91cd73939fc496fa24a6f4","5f1f5e87e0420703781c10c7",this.state.startDate,this.state.endDate)
+       adService.add_booking("5e91cd73939fc496fa24a6f4",localStorage.getItem('user')._id,this.state.ad._id,this.state.startDate,this.state.endDate)
     };
 
 
 
 
     render() { 
+        const date1 = new Date(this.state.startDate);
+        const date2 = new Date(this.state.endDate);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
         return (
             <div >
-                <h4>{this.state.ad.price}$ /το βράδυ</h4>
-                <p>4/5</p>
+                <h4 style={{marginTop:"20%"}}>{this.state.ad.price}$ /το βράδυ</h4>
+                <p style={{marginTop:"10px",color:"grey"}}>4/5</p>
 
-                <DateRangePicker
+                <DateRangePicker style={{marginTop:"10px"}}
                     startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                     startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                     endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -51,7 +55,9 @@ class BookingButton extends Component {
                     onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
                 />
 
-                <button  type="button" class="btn btn-primary  " style={{width:"100%",marginTop:"10px"}} onClick={this.handleClick}>Κράτηση</button>
+                <button type="button" class="btn btn-primary  " style={{width:"100%",marginTop:"30%"}} onClick={this.handleClick}>Κράτηση</button>
+
+                <h4 style={{marginTop:"10%",color:"grey"}}>{diffDays} x {this.state.ad.price} = {diffDays * this.state.ad.price}</h4>
             </div>
 
         )
