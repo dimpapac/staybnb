@@ -11,8 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { DateRangePicker } from 'react-dates';
 
-import el from 'date-fns/locale/el';
-registerLocale('el', el)
+
 
 class SearchBar extends Component {
 
@@ -31,10 +30,18 @@ class SearchBar extends Component {
         this.handleMinus = this.handleMinus.bind(this);
         this.handlePlus = this.handlePlus.bind(this);
 
-    } 
+    }
 
     handleSearchButton(item) {
-        this.props.history.push(item);
+        this.props.history.push({
+            pathname: item,
+            state: {
+                startDate: this.startDate,
+                endDate: this.endDate,
+                location: this.location,
+                visitors: this.visitors
+            }
+        });
     }
 
     handleVisitors(event) {

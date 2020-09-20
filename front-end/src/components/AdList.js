@@ -14,8 +14,8 @@ class AdList extends Component {
         super( props , context )
         this.state = {
             area : "none",
-            startDate : "11-03-2020",
-            endDate : "13-05-2020",
+            // startDate : "11-03-2020",
+            // endDate : "13-05-2020",
             no_posts: true,
             visiblePosts: 0,
             ads : [],
