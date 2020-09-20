@@ -29,7 +29,7 @@ class AutoCompleteLoc extends Component {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             {/*<Input required {...getInputProps({ className: 'location-search-input'})}/>*/}
-            <input placeholder='Επιλέξτε περιοχή' required {...getInputProps({ className: 'location-search-input'})}/>
+            <input style={{height:'47.5px', borderRadius: '2px'}}  type="text" placeholder='Location' required {...getInputProps({ className: 'form-control location-search-input'})}/>
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {

@@ -152,7 +152,6 @@ class NavBar extends Component {
 
                 <div className="collapse navbar-collapse  ml-auto"  id="navbarSupportedContent" >
                     <ul className="navbar-nav ml-auto " >
-                    <button className="hostbutton" >Become a Host</button>
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle " href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             <i className="fa fa-bars"/>
@@ -171,27 +170,27 @@ class NavBar extends Component {
                                     <Modal.Body>
                                         <form onSubmit={this.handleRegister}>
                                           <div className="form-group">
-                                            <label for="username">Όνομα</label>
+                                            <label htmlFor="username">Όνομα</label>
                                               <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleTextArea} name="firstName"  placeholder="Ιωάννης"/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="username">Επώνυμο </label>
+                                            <label htmlFor="username">Επώνυμο </label>
                                               <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleTextArea} name="lastName"  placeholder="Σκούρας"/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="username">Email*</label>
+                                            <label htmlFor="username">Email*</label>
                                               <input type="email" className="form-control" value={this.state.email} onChange={this.handleTextArea} name="email" placeholder="Enter email"  required/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="username">Όνομα Χρήστη*</label>
+                                            <label htmlFor="username">Όνομα Χρήστη*</label>
                                               <input type="text" className="form-control" value={this.state.newusername} onChange={this.handleTextArea} name="newusername"  placeholder="Username" required/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="inputPassword">Κωδικός Χρήστη*</label>
+                                            <label htmlFor="inputPassword">Κωδικός Χρήστη*</label>
                                               <input type="password" className="form-control" value={this.state.password1} onChange={this.handleTextArea} name="password1" placeholder="Password" required/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="inputPassword">Κωδικός Χρήστη (Επιβεβαίωση)*</label>
+                                            <label htmlFor="inputPassword">Κωδικός Χρήστη (Επιβεβαίωση)*</label>
                                               <input type="password" className="form-control" value={this.state.password2} onChange={this.handleTextArea} name="password2" placeholder="Confirm Password" required/>
                                           </div>
                                           <button className="btn btn-primary w-100" type="submit" >
@@ -223,11 +222,11 @@ class NavBar extends Component {
                                     <Modal.Body>
                                         <form onSubmit={this.handleLogin}>
                                           <div className="form-group">
-                                            <label for="username">Όνομα Χρήστη</label>
+                                            <label htmlFor="username">Όνομα Χρήστη</label>
                                               <input type="text" className="form-control" value={this.state.username} onChange={this.handleTextArea} name="username"  placeholder="Username"/>
                                           </div>
                                           <div className="form-group">
-                                            <label for="inputPassword">Κωδικός Χρήστη</label>
+                                            <label htmlFor="inputPassword">Κωδικός Χρήστη</label>
                                               <input type="password" className="form-control" id="inputPassword" value={this.state.password} onChange={this.handleTextArea} name="password" placeholder="Password"/>
                                           </div>
                                           <button className="btn btn-primary w-100" type="submit" >

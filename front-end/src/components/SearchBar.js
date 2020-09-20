@@ -9,6 +9,7 @@ import AutoCompleteLoc from './AutoCompleteLoc'
 import DatePicker, { registerLocale } from  "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import { DateRangePicker } from 'react-dates';
 
 import el from 'date-fns/locale/el';
 registerLocale('el', el)
@@ -18,8 +19,6 @@ class SearchBar extends Component {
     constructor (props) {
         super()
         this.state = {
-            show: false,
-            setShow: false,
             startDate: null,
             endDate: null,
             location: "",
@@ -28,26 +27,21 @@ class SearchBar extends Component {
 
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleVisitors = this.handleVisitors.bind(this);
         this.handleMinus = this.handleMinus.bind(this);
         this.handlePlus = this.handlePlus.bind(this);
 
     } 
 
-    handleSearchButton(item){
+    handleSearchButton(item) {
         this.props.history.push(item);
     }
 
+    handleVisitors(event) {
+        this.setState({visitors: Number(event.target.value)});
+    }
 
-    handleChange = dates => {
-        const [start, end] = dates;
-        this.setState({
-            startDate: start,
-            endDate: end
-        });
-    };
-
-    handleLocation =  (val) => {
+    handleLocation = (val) => {
         if (val.length > 0) 
             this.setState({
                 location: val,
@@ -58,15 +52,15 @@ class SearchBar extends Component {
                 location: val,
                 locError: true
             })
-    };
+    }
 
-    handleMinus(){
+    handleMinus() {
         this.state.visitors > 1 && this.setState({
             visitors : this.state.visitors - 1
         })
     }
 
-    handlePlus(){
+    handlePlus() {
         this.setState({
             visitors : this.state.visitors + 1
         })
@@ -75,31 +69,39 @@ class SearchBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <button onClick={() => this.handleSearchButton("/ads")}>Search</button>
-                <form>
-                    <div className="form-row mx-auto">
-                        <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
-                        <DatePicker
-                            placeholderText="Επιλέξτε ημερομηνίες"
-                            selected={this.state.startDate}
-                            onChange={this.handleChange}
-                            dateFormat="DD/MM/YYYY"
-                            monthsShown={2}
-                            minDate={new Date()}
-                            startDate={this.state.startDate}
-                            endDate={this.state.endDate}
-                            selectsRange
-                            inline
-                            isClearable
-                            required
-                            locale="el"
-                        />
-                        <input type="button" value="-" className="button-minus" data-field="quantity" onClick={this.handleMinus}/>
-                        <input type="number" step="1" min="1" value={this.state.visitors} name="quantity" className="quantity-field"/>
-                        <input type="button" value="+" className="button-plus" data-field="quantity" onClick={this.handlePlus}/>
+                <div className="row m-0">
+                    <div className="col-2 p-0"/>
+                    <div className="col-8 border-bottom mt-2 p-0">
+                        <form className="form-inline">
+                            <div className="form-group mb-2">
+                                <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
+                            </div>
+                            <div className="form-group mx-sm-3 mb-2">
+                                <DateRangePicker
+                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                    startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                    endDateId="y     our_unique_end_date_id" // PropTypes.string.isRequired,
+                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+                                    focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                                    onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                                />
+                            </div>
+                            <div className="form-group mx-sm-3 mb-2 input-group">
+                                <div className="input-group-prepend">
+                                    <span style={{height:'47.5px', borderRadius: '2px'}} className="btn input-group-text" onClick={this.handleMinus}>-</span>
+                                </div>
+                                <input type="number" style={{width: '40px', height:'47.5px'}} value={this.state.visitors} name="quantity" className="form-control" onChange={this.handleVisitors}/>
+                                <div className="input-group-append">
+                                    <span style={{height:'47.5px', borderRadius: '2px'}} className="btn input-group-text" onClick={this.handlePlus}>+</span>
+                                </div>
+                            </div>
+                            <button style={{height:'47.5px'}} type="submit" className="btn btn-info mb-2" onClick={() => this.handleSearchButton("/ads")}>Search</button>
+                        </form>
                     </div>
-                </form>
-                
+                    <div className="col-2 p-0"/>
+
+                </div>
             </React.Fragment>
         )
     }
