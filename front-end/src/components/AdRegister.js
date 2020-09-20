@@ -60,14 +60,15 @@ class AdRegister extends Component {
                         <option>Διαμέρισμα</option>
                         </select>
                     </div>
-                    <div className="form-group">
-                    <label for="address">Διεύθυνση</label>
-                        <input type="text" className="form-control" value={this.state.address} onChange={this.handleTextArea} name="address"  placeholder="Διεύθυνση Χώρου"/>
-                    </div>
 
                     <div className="form-group">
                     <label for="title">Τιμή Ανά Βράδυ</label>
                         <input type="text" className="form-control" value={this.state.title} onChange={this.handleTextArea} name="price"  placeholder="π.χ. 35"/>
+                    </div>
+
+                    <div className="form-group">
+                    <label for="address">Διεύθυνση</label>
+                        <input type="text" className="form-control" value={this.state.address} onChange={this.handleTextArea} name="address"  placeholder="Διεύθυνση Χώρου"/>
                     </div>
 
                     <div>
@@ -76,11 +77,11 @@ class AdRegister extends Component {
                             <AutoCompleteLoc  class="float-left" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
                         </div>
                     </div>
-                    
+
                     {this.state.lat == null ? 
-                    (<div class="text-center" style={{ color:"white",borderRadius:"10px",width:"50%",background:"#FA8072",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Παρακαλούμε επιλέξτε το σημείο στον Χάρτη</div>) 
+                    (<div class="text-center" style={{ color:"white",borderRadius:"10px",width:"100%",background:"#FA8072",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Παρακαλούμε επιλέξτε το σημείο στον Χάρτη</div>) 
                     :
-                    (<div class="text-center" style={{ color:"white",borderRadius:"10",width:"50%",background:"#6B8E23",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Το σημείο επιλέχτηκε! </div>)
+                    (<div class="text-center" style={{ color:"white",borderRadius:"10",width:"100%",background:"#6B8E23",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Το σημείο επιλέχτηκε! </div>)
                     }
                     <p>Αν επιλέξατε λάθος σημείο, απλά επιλέξτε ξανά!</p>
 

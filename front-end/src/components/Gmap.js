@@ -15,11 +15,12 @@ class GMap extends Component
         width: props.width,
         marginTop : props.marginTop,
         withMarkers : props.withMarkers,
-        lat : null
+        lat : null,
+        selectedPosition: null
+
     }
   }
-
-
+    
   componentDidMount(){
     this.setState({
         mapLoading : false
@@ -42,11 +43,21 @@ class GMap extends Component
 
     const handleClick = (event) => {
       this.props.action(event.latLng.lat(),event.latLng.lng())
+      this.setState({
+        selectedPosition : {
+          latitude : event.latLng.lat(),
+          longitude: event.latLng.lng()
+        }
+      }) 
+      this.render()
     }
 
     
+    const selectedPosition = this.state.selectedPosition
+    
 
     function Map() {
+
       const [selectedAd , setSelectedAd ] = useState(null);
       return (
         <div>
@@ -82,10 +93,21 @@ class GMap extends Component
         </GoogleMap>
         )}
 
-        {!wm && (
+        {!wm && selectedPosition == null ?(
            <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : 38 , lng : 23 }} >
            </GoogleMap>
-        )}
+        )
+        :
+        (
+          <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : selectedPosition['latitude'] , lng : selectedPosition['longitude'] }} >
+             {selectedPosition != null && (
+               <Marker 
+                position={{lat: selectedPosition['latitude'],lng:  selectedPosition['longitude']}}
+              />
+             )}
+           </GoogleMap>
+        )
+      }
 
         </div>
       );
