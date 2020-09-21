@@ -54,6 +54,20 @@ class GMap extends Component
 
     
     const selectedPosition = this.state.selectedPosition
+    let selectedPositionMarker;
+    if ( selectedPosition == null && !wm ) {
+      selectedPositionMarker =            <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : 38 , lng : 23 }} ></GoogleMap>
+    }
+    else if ( selectedPosition != null && !wm ) {
+      selectedPositionMarker =  <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : selectedPosition['latitude'] , lng : selectedPosition['longitude'] }} >
+                                    <Marker 
+                                    position={{lat: selectedPosition['latitude'],lng:  selectedPosition['longitude']}}
+                                  />
+                                </GoogleMap>
+    } 
+    else{
+      selectedPositionMarker = null
+    }
     
 
     function Map() {
@@ -93,21 +107,7 @@ class GMap extends Component
         </GoogleMap>
         )}
 
-        {!wm && selectedPosition == null ?(
-           <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : 38 , lng : 23 }} >
-           </GoogleMap>
-        )
-        :
-        (
-          <GoogleMap onClick={(e) => handleClick(e)} defaultZoom={10} defaultCenter={{lat : selectedPosition['latitude'] , lng : selectedPosition['longitude'] }} >
-             {selectedPosition != null && (
-               <Marker 
-                position={{lat: selectedPosition['latitude'],lng:  selectedPosition['longitude']}}
-              />
-             )}
-           </GoogleMap>
-        )
-      }
+        {selectedPositionMarker}
 
         </div>
       );
