@@ -36,10 +36,10 @@ class SearchBar extends Component {
         this.props.history.push({
             pathname: item,
             state: {
-                startDate: this.startDate,
-                endDate: this.endDate,
-                location: this.location,
-                visitors: this.visitors
+                startDate: this.state.startDate.format("DD-MM-YYYY"),
+                endDate: this.state.endDate.format("DD-MM-YYYY"),
+                location: this.state.location,
+                visitors: this.state.visitors
             }
         });
     }

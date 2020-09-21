@@ -14,8 +14,8 @@ class AdList extends Component {
         super( props , context )
         this.state = {
             area : "none",
-            // startDate : "11-03-2020",
-            // endDate : "13-05-2020",
+            startDate : "11-03-2020",
+            endDate : "13-05-2020",
             no_posts: true,
             visiblePosts: 0,
             ads : [],
@@ -23,7 +23,9 @@ class AdList extends Component {
             coordinates : [],
             isloading : true,
             counter : 0,
-            current : 0
+            current : 0,
+            visitors: 0,
+            location: ""
         }
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.loadnext = this.loadnext.bind(this)
@@ -105,7 +107,12 @@ class AdList extends Component {
 
         let coordinate = {}; //object of coordinates
         let coordinates = [] //array of objects of coordinates
-        
+        this.setState({
+            visitors : this.props.location.state.visitors,
+            startDate : this.props.location.state.startDate,
+            endDate : this.props.location.state.endDate,
+            location: this.props.location.state.location
+        })
 
         adService.get_available_ads(0,4,this.state.startDate, this.state.endDate)
         .then( response => {
