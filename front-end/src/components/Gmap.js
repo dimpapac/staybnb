@@ -103,7 +103,6 @@ class GMap extends Component
               </div>
             </InfoWindow>
           )}
-          )
         </GoogleMap>
         )}
 

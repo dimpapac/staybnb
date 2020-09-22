@@ -3,7 +3,8 @@ import apiUrl from './apiUrl'
 export const adService = {
     get_available_ads,
     get_ad,
-    add_booking
+    add_booking,
+    add_ad
 };
 
 
@@ -67,6 +68,38 @@ function add_booking(hostId,renterId,adId,bookedFrom,bookedTill){
 	};
 
 	return fetch(`${apiUrl}/ads/addBooking`, requestOptions)
+		.then(handleResponse)
+		.then(text => {
+			return text;
+		})
+}
+
+function add_ad(ad){
+
+    const data = new FormData();
+
+    Array.from(ad.photos).forEach( photo => { 
+        data.append('productImage',photo,photo.name) 
+    });
+
+    data.append('title',ad.title)
+    data.append('type',ad.type)
+    data.append('price',ad.price)
+    data.append('capacity',ad.acapacity)
+    data.append('address',ad.address)
+    data.append('area',ad.area)
+    data.append('latitude',ad.latitude)
+    data.append('longitude',ad.longitude)
+    data.append('description',ad.description)
+    data.append('locationInfo',ad.locationInfo)
+    const requestOptions = {
+		mode: 'cors',
+		method: 'POST',
+		body: data
+    };
+    
+
+	return fetch(`${apiUrl}/ads/newAd`, requestOptions)
 		.then(handleResponse)
 		.then(text => {
 			return text;

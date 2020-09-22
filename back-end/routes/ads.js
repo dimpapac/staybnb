@@ -108,6 +108,7 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 
 	console.log(req.files)
 
+	console.log(req.body.title)
 	const photos = []
 	req.files.map((file) => {
 		photos.push(file.originalname)
@@ -118,13 +119,17 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 		{ 
 			title: req.body.title ,
 			price : req.body.price, 
+			type : req.body.type,
+			capacity : req.body.capacity,
 			photos: photos,
 			location: {
-				adress: req.body.adress ,
+				area: req.body.area,
+				address: req.body.address ,
 				longitude: parseFloat(req.body.longitude),
-				latitude: parseFloat(req.body.latitude)
+				latitude: parseFloat(req.body.latitude),
 			},
-			description: req.body.description
+			description: req.body.description,
+			locationInfo: req.body.locationInfo
 		}
 		 ,function(err,mess) {
 		if (err) {

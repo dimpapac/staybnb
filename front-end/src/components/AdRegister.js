@@ -18,12 +18,44 @@ class AdRegister extends Component {
         super( props , context )
         this.state = {
             lat: null,
-            lng: null
+            lng: null,
+            title : null,
+            type :null,
+            price : null,
+            capacity : null,
+            address : null,
+            location : null ,
+            photos : null,
+            description : null,
+            locationInfo : null
+
         } 
 
         this.locationHandler = this.locationHandler.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTextArea = this.handleTextArea.bind(this);
+        this.fileSelectHandler = this.fileSelectHandler.bind(this)
+
     } 
+
+    fileSelectHandler = event => {
+        this.setState ({
+            photos : event.target.files
+        })
+    }
+
+    handleTextArea = event => {
+        const {name,value} = event.target;
+        this.setState({
+            [name]: value
+        })
+        event.preventDefault();
+    }
+
+    handleSubmit() {
+        adService.add_ad(this.state);
+    }
 
     handleLocation =  (val) => {
         if (val.length > 0) 
@@ -63,7 +95,12 @@ class AdRegister extends Component {
 
                     <div className="form-group">
                     <label for="title">Τιμή Ανά Βράδυ</label>
-                        <input type="text" className="form-control" value={this.state.title} onChange={this.handleTextArea} name="price"  placeholder="π.χ. 35"/>
+                        <input type="text" className="form-control" value={this.state.price} onChange={this.handleTextArea} name="price"  placeholder="π.χ. 35"/>
+                    </div>
+
+                    <div className="form-group">
+                    <label for="capacity">Μέγιστος Αριθμός Ατόμων</label>
+                        <input type="text" className="form-control" value={this.state.capacity} onChange={this.handleTextArea} name="capacity"  placeholder="π.χ. 2"/>
                     </div>
 
                     <div className="form-group">
@@ -84,10 +121,24 @@ class AdRegister extends Component {
                     (<div class="text-center" style={{ color:"white",borderRadius:"10",width:"100%",background:"#6B8E23",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Το σημείο επιλέχτηκε! </div>)
                     }
                     <p>Αν επιλέξατε λάθος σημείο, απλά επιλέξτε ξανά!</p>
+                    
+                    <div className="form-group">
+                    <label for="description">Περιγραφή</label>
+                        <input type="text" className="form-control" value={this.state.description} onChange={this.handleTextArea} name="description"  placeholder="Περιγραφή Χώρου"/>
+                    </div>
 
+                    <div className="form-group">
+                    <label for="locationInfo">Πληροφορίες Τοποθεσίας</label>
+                        <input type="text" className="form-control" value={this.state.locationInfo} onChange={this.handleTextArea} name="locationInfo"  placeholder="Πληροφορίες Τοποθεσίας"/>
+                    </div>
+
+
+                    <div className="form-group">
+                    <label for="photos"> Φωτογραφίες</label>
+                        <input class="row" type="file" onChange={this.fileSelectHandler} multiple/>
+                    </div>
                     
-                    
-                    <button className="btn btn-primary w-100" type="submit" >
+                    <button style={{marginBottom:"10pc"}} className="btn btn-primary w-100" type="submit" onClick={this.handleSubmit} >
                     Εγγραφή
                     </button>
                 </form>
