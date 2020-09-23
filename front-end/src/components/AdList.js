@@ -25,7 +25,7 @@ class AdList extends Component {
             counter : 0,
             current : 0,
             visitors: 0,
-            location: ""
+            location: "Νέα Σμύρνη, Greece"
         }
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.loadnext = this.loadnext.bind(this)
@@ -114,7 +114,7 @@ class AdList extends Component {
             location: this.props.location.state.location
         })
 
-        adService.get_available_ads(0,4,this.state.startDate, this.state.endDate)
+        adService.get_available_ads(0,4,this.state.startDate, this.state.endDate,this.state.visitors,this.state.location)
         .then( response => {
             this.setState({
                 ads : response,
@@ -151,7 +151,7 @@ class AdList extends Component {
             <div style = {{ marginTop : "10px"}}>
                 
                 {!this.state.no_result && !this.state.no_posts && ( 
-					<div class ="float-left"  className = "scrolls " style={{width:"50%",float:"left",marginLeft:"10px" , height: "85vh" ,overflow: "scroll"}}>
+					<div class ="float-left"  className = "scrolls " style={{width:"58%",float:"left",marginLeft:"10px" , height: "85vh" ,overflow: "scroll"}}>
 						{this.state.ads.map((ad) => {//Loop through every row of the json file and get the attributes
 							return (
 								<div  class="list-group">
@@ -175,7 +175,7 @@ class AdList extends Component {
                 )}
 
                 {(this.state.coordinates.length > 0 && !this.state.isloading) && (
-					<Gmap withMarkers={true} ads = {this.state.ads} height={"90vh"} width={"48%"} marginTop={"0px"} />
+					<Gmap withMarkers={true} ads = {this.state.ads} height={"90vh"} width={"40%"} marginTop={"0px"} />
                 )}  
         
 

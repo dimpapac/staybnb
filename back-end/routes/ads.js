@@ -65,10 +65,15 @@ router.get('/', function(req, res, next) {
 // GET all available ads in dates given
 router.get('/available', function(req, res, next) {
 	const format = req.query.format;
+	const visitors = parseInt(req.query.visitors);
+	const location = req.query.location;
 	const start = parseInt(req.query.start);
 	const count = parseInt(req.query.count);
 	const startDate = parseInt(req.query.startDate);
 	const endDate = parseInt(req.query.endDate);
+
+	console.log(location)
+
 	db.Bookings
 	.find({ 
 		$or : [ {$and : [ { 'bookedFrom' : { $gt : new Date(startDate) }  } , { 'bookedFrom' : { $lt : new Date(endDate) }  } ] } ,
@@ -84,7 +89,7 @@ router.get('/available', function(req, res, next) {
 		}
 		else {
 			let result = invalidBookings.map(a => mongojs.ObjectID(a._id) )
-			db.Ads.find( { _id : { $nin: result } }).limit(count).skip(start , function(err , ads ){
+			db.Ads.find( { $and : [{ _id : { $nin: result } } , {'location.area' : location }  ] } ).limit(count).skip(start , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))
@@ -106,9 +111,6 @@ router.get('/available', function(req, res, next) {
 router.post("/newAd",upload.array('productImage'),function(req,res,next){
 	const format = req.query.format;
 
-	console.log(req.files)
-
-	console.log(req.body.title)
 	const photos = []
 	req.files.map((file) => {
 		photos.push(file.originalname)

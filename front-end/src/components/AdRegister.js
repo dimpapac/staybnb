@@ -36,8 +36,21 @@ class AdRegister extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTextArea = this.handleTextArea.bind(this);
         this.fileSelectHandler = this.fileSelectHandler.bind(this)
-
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     } 
+
+    handleShow(){
+        this.setState({ 
+            setShow: true
+        });
+    };
+
+    handleClose(){
+        this.setState({ 
+            setShow: false
+        });
+    };
 
     fileSelectHandler = event => {
         this.setState ({
@@ -80,12 +93,12 @@ class AdRegister extends Component {
     render() { 
         return (
             <div >
-                <form  class ="float-left"  onSubmit={this.handleRegister} style={{width:"40%",marginLeft:"2%",marginTop:"2pc"}}>
+                <form  class =" col"  onSubmit={this.handleRegister} style={{width:"50%",marginLeft:"25%",marginTop:"2pc"}}>
                     <div className="form-group">
                     <label for="title">Τίτλος</label>
                         <input type="text" className="form-control" value={this.state.title} onChange={this.handleTextArea} name="title"  placeholder="Τίτλος Αγγελίας"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="type">Τύπος Ενοικιαζόμενου Χώρου</label>
                         <select class="form-control" value={this.state.type} onChange={this.handleTextArea} name="type" >
                         <option>Δωμάτιο</option>
@@ -103,6 +116,7 @@ class AdRegister extends Component {
                         <input type="text" className="form-control" value={this.state.capacity} onChange={this.handleTextArea} name="capacity"  placeholder="π.χ. 2"/>
                     </div>
 
+
                     <div className="form-group">
                     <label for="address">Διεύθυνση</label>
                         <input type="text" className="form-control" value={this.state.address} onChange={this.handleTextArea} name="address"  placeholder="Διεύθυνση Χώρου"/>
@@ -111,10 +125,20 @@ class AdRegister extends Component {
                     <div>
                         <div className="form-group">
                             <label for="area">Πόλη</label>
-                            <AutoCompleteLoc  class="float-left" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
+                            <AutoCompleteLoc  className="form-control" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
                         </div>
                     </div>
 
+                    <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"10px"}} onClick={this.handleShow}>Άνοιγμα Χάρτη</button>
+                    <Modal size="lg" show={this.state.setShow} onHide={this.handleClose} >
+                            <Modal.Header  closeButton >
+                            </Modal.Header>
+                            <Modal.Body>
+                            <div class="text-center" style={{width : "100%"}}>
+                                <GMap class="text-center" action={this.locationHandler} withMarkers={false} ads = {[this.state.info]} height={"80vh"} width={"100%"} marginTop={"0px"}/>
+                            </div>
+                            </Modal.Body>
+                    </Modal>
                     {this.state.lat == null ? 
                     (<div class="text-center" style={{ color:"white",borderRadius:"10px",width:"100%",background:"#FA8072",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Παρακαλούμε επιλέξτε το σημείο στον Χάρτη</div>) 
                     :
@@ -138,12 +162,10 @@ class AdRegister extends Component {
                         <input class="row" type="file" onChange={this.fileSelectHandler} multiple/>
                     </div>
                     
-                    <button style={{marginBottom:"10pc"}} className="btn btn-primary w-100" type="submit" onClick={this.handleSubmit} >
+                    <button style={{marginLeft:"30%",width:"40%",marginTop:"10px",marginBottom:"4pc"}} className="btn btn-primary " type="submit" onClick={this.handleSubmit} >
                     Εγγραφή
                     </button>
                 </form>
-
-                <GMap class="float-right" action={this.locationHandler} withMarkers={false} ads = {[this.state.info]} height={"80vh"} width={"50%"} marginTop={"10px"}/>
             </div>
 
         )

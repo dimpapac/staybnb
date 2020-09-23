@@ -21,7 +21,7 @@ function handleResponse(response) {
 }
 
 
-function get_available_ads(start, count , startDate , endDate ) { //only control center makes this call
+function get_available_ads(start, count , startDate , endDate , visitors , location) { //only control center makes this call
 
 	const requestOptions = {
 		mode: 'cors',
@@ -29,7 +29,7 @@ function get_available_ads(start, count , startDate , endDate ) { //only control
         headers : {"Content-Type" : 'application/json'  }
 	};  
 
-    return fetch(`${apiUrl}/ads/available/?start=${start}&count=${count}&startDate=${startDate}&endDate=${endDate}`, requestOptions)
+    return fetch(`${apiUrl}/ads/available/?start=${start}&count=${count}&startDate=${startDate}&endDate=${endDate}&location=${location}&visitors=${visitors}`, requestOptions)
     .then(response => response.json())
     .then(response => {
         return response;
@@ -85,11 +85,11 @@ function add_ad(ad){
     data.append('title',ad.title)
     data.append('type',ad.type)
     data.append('price',ad.price)
-    data.append('capacity',ad.acapacity)
+    data.append('capacity',ad.capacity)
     data.append('address',ad.address)
-    data.append('area',ad.area)
-    data.append('latitude',ad.latitude)
-    data.append('longitude',ad.longitude)
+    data.append('area',ad.location)
+    data.append('latitude',ad.lat)
+    data.append('longitude',ad.lng)
     data.append('description',ad.description)
     data.append('locationInfo',ad.locationInfo)
     const requestOptions = {
