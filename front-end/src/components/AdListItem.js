@@ -23,12 +23,23 @@ class AdListItem extends Component {
         } else {
             linkStyle = {color: '#000'}
         }
-        
+        const filters = ["wifi","airco","heat","parking","kitchen","elevator","tv"]
+        const filterValues =  [this.props.wifi , this.props.airco , this.props.heat , this.props.parking , this.props.kitchen , this.props.elevator , this.props.tv]
+        let flag = 0;
+        for (let i = 0; i < 7; i++) {
+            if ( filterValues[i] == true && this.state.info.filters.[filters[i]] == "false" ){
+                console.log("As")
+                flag = 1
+            }
+            console.log(filterValues[i] )
+            console.log(this.state.info.filters.[filters[i]] )
+        }
+        if (flag == 0) {
         return (
             <div  style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
                 <a key={this.state.info._id} class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
                 <div class="row">
-                    <div class="float-left" style={{width : "17pc"}}>
+                    <div class="float-left" style={{width : "25%",marginRight:"2%"}}>
                         <Carousel ad={this.state.info} height={"12pc"} />
                     </div>
                     <div onClick={ () => {
@@ -36,16 +47,34 @@ class AdListItem extends Component {
                         this.props.history.push('/preview');
                     }}
                     class="col-sm-7 float-right" > 
-                            <div class="d-flex w-100 justify-content-between " style={{marginBottom : "10%"}}>
+                            <div class="d-flex w-100 justify-content-between row" style={{marginBottom : "5%"}}>
                                 <h5 class="mb-1">{this.state.info.title}</h5>
                                 <p class="mb-1 ">{this.state.info.location.address}</p>
                             </div>
-                            <p class="mb-1 ">{this.state.info.description}</p>
+                            <div class="row" style={{marginBottom : "5%"}}>                                  
+                                {this.state.info.filters.wifi == "true" && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Wifi</span>)}
+                                {this.state.info.filters.airco == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κλιματισμός</span>)}
+                                {this.state.info.filters.heat == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Θέρμανση</span>)}
+                                {this.state.info.filters.kitchen == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κουζίνα</span>)}
+                                {this.state.info.filters.parking == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Χώρος Στάθμευσης</span>)}
+                                {this.state.info.filters.elevator == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Ανελκυστήρας</span>)}
+                                {this.state.info.filters.tv == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Τηλεόραση</span>)}
+                            </div>
+                            <div class="row">      
+                                <p class="mb-1 ">{this.state.info.price}€ / το βράδυ</p>
+                            </div>
+                            <div class="row">      
+                            <p class="mb-1 ">{this.state.info.totalReviews} Αξιολογήσεις</p>
+                            </div>
                     </div>
                 </div>
                 </a>
             </div>
         )
+        }
+        else{
+            return null
+        }
     }
 }
 

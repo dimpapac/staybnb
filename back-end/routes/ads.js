@@ -72,8 +72,6 @@ router.get('/available', function(req, res, next) {
 	const startDate = req.query.startDate;
 	const endDate = req.query.endDate;
 
-	console.log(location)
-
 	db.Bookings
 	.find({ 
 		$or : [ {$and : [ { 'bookedFrom' : { $gt : new Date(startDate) }  } , { 'bookedFrom' : { $lt : new Date(endDate) }  } ] } ,
@@ -89,7 +87,7 @@ router.get('/available', function(req, res, next) {
 		}
 		else {
 			let result = invalidBookings.map(a => mongojs.ObjectID(a.adId) )
-
+			console.log(result)
 			db.Ads.find( { $and : [{ _id : { $nin: result } } , {'location.area' : location }  ] } ).limit(count).skip(start , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
@@ -132,7 +130,17 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 				latitude: parseFloat(req.body.latitude),
 			},
 			description: req.body.description,
-			locationInfo: req.body.locationInfo
+			locationInfo: req.body.locationInfo,
+			totalReviews : 0,
+			filters : {
+				airco : req.body.airco,
+				wifi : req.body.wifi,
+				heat :req.body.heat,
+				tv : req.body.tv,
+				elevator : req.body.elevator,
+				kitchen : req.body.kitchen, 
+				parking : req.body.parking
+			}
 		}
 		 ,function(err,mess) {
 		if (err) {

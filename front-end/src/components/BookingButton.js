@@ -42,10 +42,9 @@ class BookingButton extends Component {
 
         return (
             <div >
-                <h4 style={{marginTop:"20%"}}>{this.state.ad.price}$ /το βράδυ</h4>
-                <p style={{marginTop:"10px",color:"grey"}}>4/5</p>
+                <h4 style={{marginTop:"5%"}}>{this.state.ad.price}$ /το βράδυ</h4>
 
-                <DateRangePicker style={{marginTop:"10px"}}
+                <DateRangePicker style={{marginTop:"5%"}}
                     startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                     startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                     endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -55,9 +54,9 @@ class BookingButton extends Component {
                     onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
                 />
 
-                <button type="button" class="btn btn-primary  " style={{width:"100%",marginTop:"30%"}} onClick={this.handleClick}>Κράτηση</button>
+                <button type="button" class="btn btn-primary  " style={{width:"100%",marginTop:"5%"}} onClick={this.handleClick}>Κράτηση</button>
 
-                <h4 style={{marginTop:"10%",color:"grey"}}>{diffDays} x {this.state.ad.price} = {diffDays * this.state.ad.price}</h4>
+                <h4 style={{marginTop:"5%",color:"grey"}}>{diffDays} x {this.state.ad.price} = {diffDays * this.state.ad.price}</h4>
             </div>
 
         )

@@ -27,7 +27,14 @@ class AdRegister extends Component {
             location : null ,
             photos : null,
             description : null,
-            locationInfo : null
+            locationInfo : null,
+            elevator : false,
+            parking : false,
+            tv : false ,
+            kitchen : false,
+            heat : false,
+            airco : false,
+            wifi : false
 
         } 
 
@@ -38,6 +45,7 @@ class AdRegister extends Component {
         this.fileSelectHandler = this.fileSelectHandler.bind(this)
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleCheckBox =this.handleCheckBox.bind(this);
     } 
 
     handleShow(){
@@ -66,8 +74,17 @@ class AdRegister extends Component {
         event.preventDefault();
     }
 
+    handleCheckBox = event => {
+        const {name,value} = event.target;
+        const newVal = !this.state.[name]
+        this.setState({
+            [name] : newVal
+        })
+    }
+
     handleSubmit() {
-        adService.add_ad(this.state);
+        const message = adService.add_ad(this.state);
+        alert (message)
     }
 
     handleLocation =  (val) => {
@@ -116,6 +133,46 @@ class AdRegister extends Component {
                         <input type="text" className="form-control" value={this.state.capacity} onChange={this.handleTextArea} name="capacity"  placeholder="π.χ. 2"/>
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="wifi" />
+                                <label class="form-check-label" for="wifi">Wifi</label>
+                            </div>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="airco" />
+                                <label class="form-check-label" for="airco">Ψύξη</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="heat" />
+                                <label class="form-check-label" for="heat">Θέρμανση</label>
+                            </div> 
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="kitchen" />
+                                <label class="form-check-label" for="kitchen">Κουζίνα</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="tv" />
+                                <label class="form-check-label" for="tv">Τηλεόραση</label>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="parking" />
+                                <label class="form-check-label" for="parking">Parking</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check"> 
+                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="elevator" />
+                                <label class="form-check-label"  for="elevator">Ανελκυστήρας</label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="form-group">
                     <label for="address">Διεύθυνση</label>

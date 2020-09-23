@@ -78,9 +78,11 @@ function add_ad(ad){
 
     const data = new FormData();
 
-    Array.from(ad.photos).forEach( photo => { 
-        data.append('productImage',photo,photo.name) 
-    });
+    if(ad.photos != null ){
+        Array.from(ad.photos).forEach( photo => { 
+            data.append('productImage',photo,photo.name) 
+        });
+    }
 
     data.append('title',ad.title)
     data.append('type',ad.type)
@@ -92,6 +94,13 @@ function add_ad(ad){
     data.append('longitude',ad.lng)
     data.append('description',ad.description)
     data.append('locationInfo',ad.locationInfo)
+    data.append('airco',ad.airco)
+    data.append('heat',ad.heat)
+    data.append('wifi',ad.wifi)
+    data.append('kitchen',ad.kitchen)
+    data.append('parking',ad.parking)
+    data.append('tv',ad.tv)
+    data.append('elevator',ad.elevator)
     const requestOptions = {
 		mode: 'cors',
 		method: 'POST',
