@@ -25,7 +25,8 @@ class NavBar extends Component {
             email: "",
             newusername: "",
             password1: "",
-            password2: ""
+            password2: "",
+            usertype: "1"
         }
         this.handleClose = this.handleClose.bind(this)
         this.handleCloseReg = this.handleCloseReg.bind(this)
@@ -113,7 +114,7 @@ class NavBar extends Component {
         }
         else {
             // console.log(this.state.firstName, this.state.lastName)
-            authenticationService.registerUser(this.state.newusername, this.state.password1, this.state.email, this.state.firstName, this.state.lastName)
+            authenticationService.registerUser(this.state.newusername, this.state.password1, this.state.email, this.state.firstName, this.state.lastName, this.state.usertype)
                 .then(
                     text => {
                         console.log(text)
@@ -171,16 +172,21 @@ class NavBar extends Component {
                                         <form onSubmit={this.handleRegister}>
                                           <div className="form-group">
                                             <label htmlFor="username">Όνομα</label>
-                                              <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleTextArea} name="firstName"  placeholder="Ιωάννης"/>
+                                              <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleTextArea} name="firstName"  placeholder="π.χ. Ιωάννης"/>
                                           </div>
                                           <div className="form-group">
                                             <label htmlFor="username">Επώνυμο </label>
-                                              <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleTextArea} name="lastName"  placeholder="Σκούρας"/>
+                                              <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleTextArea} name="lastName"  placeholder="π.χ. Σκούρας"/>
                                           </div>
                                           <div className="form-group">
                                             <label htmlFor="username">Email*</label>
-                                              <input type="email" className="form-control" value={this.state.email} onChange={this.handleTextArea} name="email" placeholder="Enter email"  required/>
+                                              <input type="email" className="form-control" value={this.state.email} onChange={this.handleTextArea} name="email" placeholder="π.χ. email@gmail.com"  required/>
                                           </div>
+                                          <label htmlFor="usertype">Τύπος Χρήστη</label>
+                                            <select className="form-control" value={this.state.usertype} onChange={this.handleTextArea} name="usertype" >
+                                            <option value="1">Επισκέπτης</option>
+                                            <option value="2">Οικοδεσπότης</option>
+                                            </select>
                                           <div className="form-group">
                                             <label htmlFor="username">Όνομα Χρήστη*</label>
                                               <input type="text" className="form-control" value={this.state.newusername} onChange={this.handleTextArea} name="newusername"  placeholder="Username" required/>
@@ -234,7 +240,7 @@ class NavBar extends Component {
                                           </button>
                                             {!this.state.flag &&
                                                 <div className="mt-2 alert alert-danger">
-                                                    <strong>To Όνομα Χρήστη ή ο Κωδικός Πρόσβασης είναι λάθος</strong>
+                                                    <strong>To Όνομα Χρήστη ή ο Κωδικός Χρήστη είναι λάθος</strong>
                                                 </div>
                                             }
                                         </form>

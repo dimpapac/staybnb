@@ -36,7 +36,7 @@ function login(username, password) {
 
 }
 
-function registerUser(username, password, email, firstName, lastName) {
+function registerUser(username, password, email, firstName, lastName, usertype) {
 
 	const requestOptions = {
 		mode: 'cors',
@@ -47,7 +47,8 @@ function registerUser(username, password, email, firstName, lastName) {
 			password, 
 			email,
 			firstName, 
-			lastName 
+			lastName,
+			usertype 
 		})
 	};
 

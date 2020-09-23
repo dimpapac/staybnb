@@ -95,7 +95,7 @@ router.post('/registerUser', function(req, res, next) {
 				{ 
 					username: req.body.username ,
 					passwordHash : bcrypt.hashSync(req.body.password) , 
-					userType: 1 ,
+					userType: req.body.usertype ,
 					name : {
 						firstName : req.body.firstName,
 						lastName : req.body.lastName
