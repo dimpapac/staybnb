@@ -14,8 +14,8 @@ class AdList extends Component {
         super( props , context )
         this.state = {
             area : "none",
-            startDate : "11-03-2020",
-            endDate : "13-05-2020",
+            startDate : this.props.location.state.startDate,
+            endDate : this.props.location.state.endDate,
             no_posts: true,
             visiblePosts: 0,
             ads : [],
@@ -24,8 +24,8 @@ class AdList extends Component {
             isloading : true,
             counter : 0,
             current : 0,
-            visitors: 0,
-            location: "Νέα Σμύρνη, Greece"
+            visitors: this.props.location.state.visitors,
+            location: this.props.location.state.location
         }
         this.handleSearchButton = this.handleSearchButton.bind(this);
         this.loadnext = this.loadnext.bind(this)
@@ -39,7 +39,7 @@ class AdList extends Component {
     loadnext(){
             let coordinate = {}; //object of coordinates
             let coordinates = [] //array of objects of coordinates
-            adService.get_available_ads(this.state.counter,4,this.state.startDate, this.state.endDate)
+            adService.get_available_ads(this.state.counter,10,this.state.startDate, this.state.endDate,this.state.visitors,this.state.location)
             .then( response => {
                 if ( response.length > 0) {
                     this.setState((prevState,props) => ({
@@ -69,10 +69,10 @@ class AdList extends Component {
     }
 
     loadprev(){
-        if ( this.state.counter - 4 > 0 ) {
+        if ( this.state.counter - 10 > 0 ) {
             let coordinate = {}; //object of coordinates
             let coordinates = [] //array of objects of coordinates
-            adService.get_available_ads(this.state.counter - this.state.current - 4,4,this.state.startDate, this.state.endDate)
+            adService.get_available_ads(this.state.counter - this.state.current - 10,10,this.state.startDate, this.state.endDate,this.state.visitors,this.state.location)
             .then( response => {
                 this.setState((prevState,props) => ({
                     ads : response,
@@ -107,14 +107,8 @@ class AdList extends Component {
 
         let coordinate = {}; //object of coordinates
         let coordinates = [] //array of objects of coordinates
-        this.setState({
-            visitors : this.props.location.state.visitors,
-            startDate : this.props.location.state.startDate,
-            endDate : this.props.location.state.endDate,
-            location: this.props.location.state.location
-        })
 
-        adService.get_available_ads(0,4,this.state.startDate, this.state.endDate,this.state.visitors,this.state.location)
+        adService.get_available_ads(0,10,this.state.startDate, this.state.endDate,this.state.visitors,this.state.location)
         .then( response => {
             this.setState({
                 ads : response,

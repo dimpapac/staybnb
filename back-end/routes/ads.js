@@ -69,8 +69,8 @@ router.get('/available', function(req, res, next) {
 	const location = req.query.location;
 	const start = parseInt(req.query.start);
 	const count = parseInt(req.query.count);
-	const startDate = parseInt(req.query.startDate);
-	const endDate = parseInt(req.query.endDate);
+	const startDate = req.query.startDate;
+	const endDate = req.query.endDate;
 
 	console.log(location)
 
@@ -88,7 +88,8 @@ router.get('/available', function(req, res, next) {
 			return;
 		}
 		else {
-			let result = invalidBookings.map(a => mongojs.ObjectID(a._id) )
+			let result = invalidBookings.map(a => mongojs.ObjectID(a.adId) )
+
 			db.Ads.find( { $and : [{ _id : { $nin: result } } , {'location.area' : location }  ] } ).limit(count).skip(start , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
