@@ -33,7 +33,7 @@ class SearchBar extends Component {
     }
 
     handleSearchButton(item) {
-        this.props.history.push({
+        this.state.startDate && this.props.history.push({
             pathname: item,
             state: {
                 startDate: this.state.startDate._d,

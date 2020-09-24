@@ -95,6 +95,7 @@ class NavBar extends Component {
                     localStorage.setItem('user', user);
                     this.handleClose()
                     this.clearInput()
+                    {user.userType === 2 && this.props.history.push('/host');}
                 },
                 error => {
                     console.log("wrong input")
@@ -102,6 +103,7 @@ class NavBar extends Component {
                     
                 }
             );
+
         event.preventDefault();
     };
 

@@ -9,6 +9,7 @@ import MainPage from './components/MainPage'
 import Help from './components/Help'
 import AdPreview from './components/AdPreview'
 import AdRegister from './components/AdRegister'
+import HostPage from './components/HostPage'
 
 import { Switch, Route , Redirect} from 'react-router-dom'
 
@@ -39,6 +40,7 @@ class App extends Component
             <Route path='/help' component={Help} history={this.props.history} />
             <Route path='/preview' component={AdPreview} history={this.props.history} />
             <Route path='/newAd' component={AdRegister} history={this.props.history} />
+            <Route path='/host' component={HostPage} history={this.props.history} />
           </Switch>
         </div>
       );

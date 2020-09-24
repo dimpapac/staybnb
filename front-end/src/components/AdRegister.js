@@ -110,113 +110,113 @@ class AdRegister extends Component {
     render() { 
         return (
             <div >
-                <form  class =" col"  onSubmit={this.handleRegister} style={{width:"50%",marginLeft:"25%",marginTop:"2pc"}}>
+                <form  className =" col"  onSubmit={this.handleRegister} style={{width:"50%",marginLeft:"25%",marginTop:"2pc"}}>
                     <div className="form-group">
-                    <label for="title">Τίτλος</label>
+                    <label htmlFor="title">Τίτλος</label>
                         <input type="text" className="form-control" value={this.state.title} onChange={this.handleTextArea} name="title"  placeholder="Τίτλος Αγγελίας"/>
                     </div>
-                    <div class="form-group ">
-                        <label for="type">Τύπος Ενοικιαζόμενου Χώρου</label>
-                        <select class="form-control" value={this.state.type} onChange={this.handleTextArea} name="type" >
+                    <div className="form-group ">
+                        <label htmlFor="type">Τύπος Ενοικιαζόμενου Χώρου</label>
+                        <select className="form-control" value={this.state.type} onChange={this.handleTextArea} name="type" >
                         <option>Δωμάτιο</option>
                         <option>Διαμέρισμα</option>
                         </select>
                     </div>
 
                     <div className="form-group">
-                    <label for="title">Τιμή Ανά Βράδυ</label>
+                    <label htmlFor="title">Τιμή Ανά Βράδυ</label>
                         <input type="text" className="form-control" value={this.state.price} onChange={this.handleTextArea} name="price"  placeholder="π.χ. 35"/>
                     </div>
 
                     <div className="form-group">
-                    <label for="capacity">Μέγιστος Αριθμός Ατόμων</label>
+                    <label htmlFor="capacity">Μέγιστος Αριθμός Ατόμων</label>
                         <input type="text" className="form-control" value={this.state.capacity} onChange={this.handleTextArea} name="capacity"  placeholder="π.χ. 2"/>
                     </div>
 
 
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="wifi" />
-                                <label class="form-check-label" for="wifi">Wifi</label>
+                    <div className="row">
+                        <div className="col-3">
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="wifi" />
+                                <label className="form-check-label" htmlFor="wifi">Wifi</label>
                             </div>
 
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="airco" />
-                                <label class="form-check-label" for="airco">Ψύξη</label>
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="airco" />
+                                <label className="form-check-label" htmlFor="airco">Ψύξη</label>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="heat" />
-                                <label class="form-check-label" for="heat">Θέρμανση</label>
+                        <div className="col-3">
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="heat" />
+                                <label className="form-check-label" htmlFor="heat">Θέρμανση</label>
                             </div> 
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="kitchen" />
-                                <label class="form-check-label" for="kitchen">Κουζίνα</label>
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="kitchen" />
+                                <label className="form-check-label" htmlFor="kitchen">Κουζίνα</label>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="tv" />
-                                <label class="form-check-label" for="tv">Τηλεόραση</label>
+                        <div className="col-3">
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="tv" />
+                                <label className="form-check-label" htmlFor="tv">Τηλεόραση</label>
                             </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="parking" />
-                                <label class="form-check-label" for="parking">Parking</label>
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="parking" />
+                                <label className="form-check-label" htmlFor="parking">Parking</label>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group form-check"> 
-                                <input type="checkbox" class="form-check-input" onClick={this.handleCheckBox} name="elevator" />
-                                <label class="form-check-label"  for="elevator">Ανελκυστήρας</label>
+                        <div className="col-3">
+                            <div className="form-group form-check"> 
+                                <input type="checkbox" className="form-check-input" onClick={this.handleCheckBox} name="elevator" />
+                                <label className="form-check-label"  htmlFor="elevator">Ανελκυστήρας</label>
                             </div>
                         </div>
                     </div>
 
                     <div className="form-group">
-                    <label for="address">Διεύθυνση</label>
+                    <label htmlFor="address">Διεύθυνση</label>
                         <input type="text" className="form-control" value={this.state.address} onChange={this.handleTextArea} name="address"  placeholder="Διεύθυνση Χώρου"/>
                     </div>
 
                     <div>
                         <div className="form-group">
-                            <label for="area">Πόλη</label>
+                            <label htmlFor="area">Πόλη</label>
                             <AutoCompleteLoc  className="form-control" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
                         </div>
                     </div>
 
-                    <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"10px"}} onClick={this.handleShow}>Άνοιγμα Χάρτη</button>
+                    <button  type="button" className="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"10px"}} onClick={this.handleShow}>Άνοιγμα Χάρτη</button>
                     <Modal size="lg" show={this.state.setShow} onHide={this.handleClose} >
                             <Modal.Header  closeButton >
                             </Modal.Header>
                             <Modal.Body>
-                            <div class="text-center" style={{width : "100%"}}>
-                                <GMap class="text-center" action={this.locationHandler} withMarkers={false} ads = {[this.state.info]} height={"80vh"} width={"100%"} marginTop={"0px"}/>
+                            <div className="text-center" style={{width : "100%"}}>
+                                <GMap className="text-center" action={this.locationHandler} withMarkers={false} ads = {[this.state.info]} height={"80vh"} width={"100%"} marginTop={"0px"}/>
                             </div>
                             </Modal.Body>
                     </Modal>
                     {this.state.lat == null ? 
-                    (<div class="text-center" style={{ color:"white",borderRadius:"10px",width:"100%",background:"#FA8072",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Παρακαλούμε επιλέξτε το σημείο στον Χάρτη</div>) 
+                    (<div className="text-center" style={{ color:"white",borderRadius:"10px",width:"100%",background:"#FA8072",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Παρακαλούμε επιλέξτε το σημείο στον Χάρτη</div>) 
                     :
-                    (<div class="text-center" style={{ color:"white",borderRadius:"10",width:"100%",background:"#6B8E23",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Το σημείο επιλέχτηκε! </div>)
+                    (<div className="text-center" style={{ color:"white",borderRadius:"10",width:"100%",background:"#6B8E23",marginTop:"2pc",height:"2pc",marginBottom:"2px"}}>Το σημείο επιλέχτηκε! </div>)
                     }
                     <p>Αν επιλέξατε λάθος σημείο, απλά επιλέξτε ξανά!</p>
                     
                     <div className="form-group">
-                    <label for="description">Περιγραφή</label>
+                    <label htmlFor="description">Περιγραφή</label>
                         <input type="text" className="form-control" value={this.state.description} onChange={this.handleTextArea} name="description"  placeholder="Περιγραφή Χώρου"/>
                     </div>
 
                     <div className="form-group">
-                    <label for="locationInfo">Πληροφορίες Τοποθεσίας</label>
+                    <label htmlFor="locationInfo">Πληροφορίες Τοποθεσίας</label>
                         <input type="text" className="form-control" value={this.state.locationInfo} onChange={this.handleTextArea} name="locationInfo"  placeholder="Πληροφορίες Τοποθεσίας"/>
                     </div>
 
 
                     <div className="form-group">
-                    <label for="photos"> Φωτογραφίες</label>
-                        <input class="row" type="file" onChange={this.fileSelectHandler} multiple/>
+                    <label htmlFor="photos"> Φωτογραφίες</label>
+                        <input className="row" type="file" onChange={this.fileSelectHandler} multiple/>
                     </div>
                     
                     <button style={{marginLeft:"30%",width:"40%",marginTop:"10px",marginBottom:"4pc"}} className="btn btn-primary " type="submit" onClick={this.handleSubmit} >
