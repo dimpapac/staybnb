@@ -275,4 +275,41 @@ router.post("/updateReview",function(req, res, next){
 });
 
 
+router.post("/updateUser",function(req, res, next){
+	console.log("asd")
+	const format = req.query.format
+	let id = mongojs.ObjectID(req.body.userId)
+	db.Users.updateOne(
+		{ 
+			_id : id
+		},{
+			$set: {
+				name : {
+					firstName : req.body.fName,
+					lastName  : req.body.lName
+				},
+				email : req.body.email
+			}
+		}
+		,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "review added"}))
+			else
+				res.send({ text : "review added"});
+			return;
+		}
+	})
+	
+});
+
+
+
 module.exports = router;

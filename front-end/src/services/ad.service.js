@@ -5,7 +5,8 @@ export const adService = {
     get_ad,
     add_booking,
     add_ad,
-    add_review
+    add_review,
+    update_user
 };
 
 
@@ -142,3 +143,25 @@ function add_review(text,stars,adId,userid,username){
 }
 
 
+function update_user( userId , fName , lName , email ){
+
+    const requestOptions = {
+		mode: 'cors',
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ 
+            userId ,
+            fName , 
+            lName ,
+            email
+        })
+    };
+        
+        return fetch(`${apiUrl}/ads/updateUser`, requestOptions)
+		.then(handleResponse)
+		.then(text => {
+			return text;
+        })
+        
+
+}

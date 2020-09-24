@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter } from 'react-router'
+import { adService } from '../services/ad.service'
 
 
 class Profile extends Component
@@ -19,19 +20,8 @@ class Profile extends Component
     }
 
     handleSubmit = event => {
-        console.log("firstName", this.firstName.current.value)
-        console.log("lastName", this.lastName.current.value)
-        console.log("email", this.email.current.value)
-        //
-        // authenticationService.updateUser(this.firstName.current.value, this.lastName.current.value, this.email.current.value)
-        //     .then(
-        //         text => {
-        //             console.log(text)
-        //         },
-        //         error => {
-        //             console.log("wrong input")
-        //         }
-        // );
+        const userId = JSON.parse(localStorage.getItem('user'))._id
+        adService.update_user( userId , this.firstName.current.value , this.lastName.current.value , this.email.current.value )
         event.preventDefault();
     };
 
