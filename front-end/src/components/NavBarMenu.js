@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import SearchBar from './SearchBar';
 import { withRouter } from 'react-router'
-
-import { Switch, Route , Redirect} from 'react-router-dom'
 
 class NavBarMenu extends Component
 {
@@ -44,7 +41,7 @@ class NavBarMenu extends Component
                     <div className="collapse navbar-collapse" id="navbarNav" style={{marginLeft: "120px"}}>
                       <ul className="navbar-nav">
                         <li className="nav-item">
-                          <a className="nav-link" href="/">Διαχείριση</a>
+                          <a className="nav-link" href="/host">Διαχείριση</a>
                         </li>
                         <li className="nav-item">
                           <a className="nav-link" href="/help">Αιτήματα</a>

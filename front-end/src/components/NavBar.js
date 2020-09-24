@@ -182,7 +182,11 @@ class NavBar extends Component {
                         
                         
                         {user 
-                            ? <button className="dropdown-item" onClick={this.doLogout}>Αποσύνδεση</button>
+                            ? 
+                            <React.Fragment>
+                            <button className="dropdown-item" onClick={()=> this.props.history.push('/profile')}>Προφίλ</button>
+                            <button className="dropdown-item" onClick={this.doLogout}>Αποσύνδεση</button>
+                            </React.Fragment>
                             : <React.Fragment>
                                 <button className="dropdown-item" onClick={this.handleShowReg}>Εγγραφή</button>
                                 <Modal show={this.state.setShowReg} onHide={this.handleCloseReg}>
