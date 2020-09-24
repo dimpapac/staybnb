@@ -4,6 +4,7 @@ import '../css/navbar.css';
 import Modal from 'react-bootstrap/Modal'
 import { authenticationService } from '../services/authentication.service';
 
+import NavBarMenu from './NavBarMenu';
 
 
 class NavBar extends Component {
@@ -86,7 +87,6 @@ class NavBar extends Component {
 
     handleLogin = (event) => {
         // console.log('Submitting...', u, p)
-
         authenticationService.login(this.state.username, this.state.password)
             .then(
                 user => {
@@ -94,7 +94,11 @@ class NavBar extends Component {
                     localStorage.setItem('user', JSON.stringify(user))
                     this.handleClose()
                     this.clearInput()
-                    {user.userType === 2 && this.props.history.push('/host');}
+                    this.setState({
+                        userType: user.userType
+                    })
+                    this.render();
+                    user.userType === 2 && this.props.history.push('/host');
                 },
                 error => {
                     console.log("wrong input")
@@ -103,6 +107,7 @@ class NavBar extends Component {
                 }
             );
 
+        
         event.preventDefault();
     };
 
@@ -115,7 +120,7 @@ class NavBar extends Component {
         }
         else {
             // console.log(this.state.firstName, this.state.lastName)
-            authenticationService.registerUser(this.state.newusername, this.state.password1, this.state.email, this.state.firstName, this.state.lastName, this.state.usertype)
+            authenticationService.registerUser(this.state.newusername, this.state.password1, this.state.email, this.state.firstName, this.state.lastName, parseInt(this.state.usertype))
                 .then(
                     text => {
                         console.log(text)
@@ -137,7 +142,22 @@ class NavBar extends Component {
 
     doLogout = (event) => {
         authenticationService.logout();
+        this.setState({userType: 3});
         this.props.history.push('/');
+    }
+
+    componentDidMount(){
+        let user = JSON.parse(localStorage.getItem("user"))
+        if (user){
+            this.setState({
+                userType: user.userType
+            });
+        } 
+        else{
+            this.setState({
+                userType: 3
+            });
+        }
     }
 
     render() { 
@@ -151,7 +171,7 @@ class NavBar extends Component {
                     alt=''
                 />
                 </a>
-
+                <NavBarMenu userType={this.state.userType}/>
                 <div className="collapse navbar-collapse  ml-auto"  id="navbarSupportedContent" >
                     <ul className="navbar-nav ml-auto " >
                     <li className="nav-item dropdown">

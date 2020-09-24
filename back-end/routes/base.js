@@ -91,7 +91,7 @@ router.post('/registerUser', function(req, res, next) {
 				res.status(400).json({ error: 'Username is Taken' })
 		}
 		else{
-			db.Apartments.insert(
+			db.Users.insert(
 				{ 
 					username: req.body.username ,
 					passwordHash : bcrypt.hashSync(req.body.password) , 
