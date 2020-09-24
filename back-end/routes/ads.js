@@ -114,8 +114,9 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 	req.files.map((file) => {
 		photos.push(file.originalname)
 	})
-
-
+	
+	let hostId = mongojs.ObjectID(req.body.hostId) 
+	
 	db.Ads.insert(
 		{ 
 			title: req.body.title ,
@@ -139,8 +140,9 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 				tv : req.body.tv,
 				elevator : req.body.elevator,
 				kitchen : req.body.kitchen, 
-				parking : req.body.parking
-			}
+				parking : req.body.parking,
+			},
+			hostId : hostId
 		}
 		 ,function(err,mess) {
 		if (err) {

@@ -52,13 +52,13 @@ class AdListItem extends Component {
                                 <p class="mb-1 ">{this.state.info.location.address}</p>
                             </div>
                             <div class="row" style={{marginBottom : "5%"}}>                                  
-                                {this.state.info.filters.wifi == "true" && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Wifi</span>)}
-                                {this.state.info.filters.airco == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κλιματισμός</span>)}
-                                {this.state.info.filters.heat == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Θέρμανση</span>)}
-                                {this.state.info.filters.kitchen == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κουζίνα</span>)}
-                                {this.state.info.filters.parking == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Χώρος Στάθμευσης</span>)}
-                                {this.state.info.filters.elevator == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Ανελκυστήρας</span>)}
-                                {this.state.info.filters.tv == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Τηλεόραση</span>)}
+                                {this.state.info.filters.wifi === "true" && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Wifi</span>)}
+                                {this.state.info.filters.airco === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κλιματισμός</span>)}
+                                {this.state.info.filters.heat === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Θέρμανση</span>)}
+                                {this.state.info.filters.kitchen === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Κουζίνα</span>)}
+                                {this.state.info.filters.parking === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Χώρος Στάθμευσης</span>)}
+                                {this.state.info.filters.elevator === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Ανελκυστήρας</span>)}
+                                {this.state.info.filters.tv === "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%"}}>Τηλεόραση</span>)}
                             </div>
                             <div class="row">      
                                 <p class="mb-1 ">{this.state.info.price}€ / το βράδυ</p>

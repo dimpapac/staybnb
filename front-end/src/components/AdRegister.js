@@ -34,8 +34,8 @@ class AdRegister extends Component {
             kitchen : false,
             heat : false,
             airco : false,
-            wifi : false
-
+            wifi : false,
+            hostId : JSON.parse(localStorage.getItem('user'))._id
         } 
 
         this.locationHandler = this.locationHandler.bind(this);
@@ -83,8 +83,8 @@ class AdRegister extends Component {
     }
 
     handleSubmit() {
-        const message = adService.add_ad(this.state);
-        alert (message)
+        adService.add_ad(this.state);
+        
     }
 
     handleLocation =  (val) => {
@@ -108,6 +108,7 @@ class AdRegister extends Component {
     }
 
     render() { 
+
         return (
             <div >
                 <form  className =" col"  onSubmit={this.handleRegister} style={{width:"50%",marginLeft:"25%",marginTop:"2pc"}}>
@@ -181,7 +182,7 @@ class AdRegister extends Component {
 
                     <div>
                         <div className="form-group">
-                            <label htmlFor="area">Πόλη</label>
+                            <label htmlFor="location">Πόλη</label>
                             <AutoCompleteLoc  className="form-control" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
                         </div>
                     </div>

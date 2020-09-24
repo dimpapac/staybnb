@@ -90,9 +90,8 @@ class NavBar extends Component {
         authenticationService.login(this.state.username, this.state.password)
             .then(
                 user => {
-                    console.log(user)
                     this.setState({flag: true})
-                    localStorage.setItem('user', user);
+                    localStorage.setItem('user', JSON.stringify(user))
                     this.handleClose()
                     this.clearInput()
                     {user.userType === 2 && this.props.history.push('/host');}

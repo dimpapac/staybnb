@@ -42,7 +42,7 @@ class PhotoGrid extends Component {
             <div>
             { this.state.photos.length == 1 && (
                 <div class="row">
-                    <img  class="img img-responsive " style={{borderRadius:"25px",width:"100%",height:"60vh"}} src={this.state.photos[0]}/>
+                    <img  class="img img-responsive " style={{borderRadius:"25px",width:"100%",height:"45vh"}} src={this.state.photos[0]}/>
                 </div>
             )}
 
@@ -58,10 +58,10 @@ class PhotoGrid extends Component {
                 </div>
             )}
 
-            { this.state.photos.length == 3 && (
+            { this.state.photos.length >= 3 && (
 
             <div class="row" style={{width:"100%",height:"45vh"}}>
-                <div  style={{width:"60%"}}>
+                <div  style={{width:"60%",height:"100%"}}>
                     <img  src={this.state.photos[0]} style={{borderTopLeftRadius:"25px",borderBottomLeftRadius:"25px",width:"100%",height:"100%"}}/>
                 </div>
                 <div class="col" style={{width:"40%",height:"45vh"}}>
@@ -75,7 +75,7 @@ class PhotoGrid extends Component {
             </div>
             )}
 
-            <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"10px"}} onClick={this.handleShow}>Περισσότερες Φωτογραφίες</button>
+            <button  type="button" class="btn btn-primary" style={{marginLeft:"30%",width:"40%",marginTop:"5%"}} onClick={this.handleShow}>Περισσότερες Φωτογραφίες</button>
             <Modal size="lg" show={this.state.setShow} onHide={this.handleClose} >
                     <Modal.Header  closeButton >
                     </Modal.Header>
