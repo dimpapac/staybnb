@@ -28,7 +28,7 @@ class BookingButton extends Component {
     } 
 
     handleClick(){
-       adService.add_booking(this.state.ad.hostId, JSON.parse(localStorage.getItem('user'))._id,this.state.ad._id,this.state.startDate,this.state.endDate)
+       adService.add_booking(this.state.ad.hostId, JSON.parse(localStorage.getItem('user'))._id,this.state.ad._id,this.state.startDate,this.state.endDate,this.state.ad.hostName)
     };
 
 

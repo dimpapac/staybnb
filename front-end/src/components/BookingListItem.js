@@ -56,15 +56,15 @@ class BookingListItem extends Component {
                     }
                 });
             }}>
-                <a key={this.state.info._id} class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "100%"}}>
+                <a key={this.state.info._id} class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "60%"}}>
                 <div class="row">
-                    <div class=" float-left col-3 justify-content-between" style={{width : "25%"}}>
+                    <div class=" float-left  justify-content-between" style={{width : "25%",marginRight:"25%"}}>
                         <h5>Από : {dateFormat(this.state.info.bookedFrom, "dd-mm-yyyy")}</h5>
                         <h5>Μέχρι : {dateFormat(this.state.info.bookedTill, "dd-mm-yyyy")}</h5>
                     </div>
-                    <div class=" float-left col-3 justify-content-between" style={{marginRight:"20%"}}> 
+                    <div class=" float-right  justify-content-between" style={{marginRight:"10%"}}> 
                         <div class="d-flex w-100 row" style={{marginBottom : "5%"}}>
-                            <h5 class="mb-1">{this.state.info._id}</h5>
+                            <h5 class="mb-1">username Οικοδεσπότη: {this.state.info.hostName}</h5>
                         </div>
                     </div>
                 </div>

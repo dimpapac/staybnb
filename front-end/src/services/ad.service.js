@@ -54,7 +54,7 @@ function get_ad(id ) { //only control center makes this call
 
 }
 
-function add_booking(hostId,renterId,adId,bookedFrom,bookedTill){
+function add_booking(hostId,renterId,adId,bookedFrom,bookedTill,hostName){
     const requestOptions = {
 		mode: 'cors',
 		method: 'POST',
@@ -64,7 +64,8 @@ function add_booking(hostId,renterId,adId,bookedFrom,bookedTill){
 			renterId,
 			adId,
 			bookedFrom,
-			bookedTill
+            bookedTill,
+            hostName
 		})
 	};
 
@@ -127,16 +128,17 @@ function add_review(text,stars,adId,userid,username){
             text,
             stars,
             adId,
-            userid,
             username
 		})
     };
 
-	return fetch(`${apiUrl}/ads/addReview`, requestOptions)
+	return fetch(`${apiUrl}/ads/updateReview`, requestOptions)
 		.then(handleResponse)
 		.then(text => {
 			return text;
-		})
+        })
+        
+        
 }
 
 

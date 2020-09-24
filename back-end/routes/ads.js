@@ -194,7 +194,8 @@ router.post("/addBooking",function(req, res, next){
 			renterId: mongojs.ObjectID(req.body.renterId),
 			adId: mongojs.ObjectID(req.body.adId),
 			bookedFrom: new Date(req.body.bookedFrom),
-			bookedTill: new Date(req.body.bookedTill)
+			bookedTill: new Date(req.body.bookedTill),
+			hostName : req.body.hostName
 		}
 		,function(err,mess) {
 		if (err) {
@@ -252,7 +253,7 @@ router.post("/updateReview",function(req, res, next){
 			_id : id
 		},{
 			$inc: { totalReviews: 1 },
-			$push: { reviews : { text : req.body.text , stars : req.body.stars } }
+			$push: { reviews : { text : req.body.text , stars : req.body.stars , username : req.body.username } }
 		}
 		,function(err,mess) {
 		if (err) {
