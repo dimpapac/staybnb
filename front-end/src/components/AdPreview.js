@@ -8,6 +8,7 @@ import Gmap from './Gmap'
 import BookingButton from './BookingButton'
 
 import { adService } from '../services/ad.service'
+import { messagesService } from '../services/messages.service'
 
 
 
@@ -25,13 +26,17 @@ class AdPreview extends Component {
             photos : null,
             flag : 1,
             reviewText : "" ,
-            stars : 0
-
+            stars : 0,
+            send: false,
+            message: null
         }
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
         this.handleTextArea = this.handleTextArea.bind(this);
+        this.handleSend = this.handleSend.bind(this);
+        this.handleMessage = this.handleMessage.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
     } 
 
     handleTextArea = event => {
@@ -43,6 +48,7 @@ class AdPreview extends Component {
     }
 
     componentDidMount(){
+
         const id = localStorage.getItem('ad')
         adService.get_ad(id)
         .then( response => {
@@ -71,6 +77,28 @@ class AdPreview extends Component {
         this.handleClose()
     }
 
+    sendMessage(event){
+        event.preventDefault()
+        const id = JSON.parse(localStorage.getItem('user'))._id
+        const receiver_id = this.state.info.hostId
+        if (this.state.message) {
+            console.log('message exists')
+            messagesService.send_message(id, receiver_id, this.state.message)
+        }
+    }
+
+    handleSend(){
+        this.setState({ 
+            send: !this.state.send
+        });
+    }
+
+    handleMessage(event) {
+        this.setState({
+            message: event.target.value
+        });
+    }
+
     handleShow(){
         this.setState({ 
             setShow: true
@@ -88,34 +116,46 @@ class AdPreview extends Component {
         return (
             <div>
             { !this.state.loading && (
-                <div class="container">
-                    <h1 class="row" >{this.state.info.title}</h1>
+                <div className="container">
+                    <h1 className="row" >{this.state.info.title}</h1>
 
-                    <PhotoGrid class="row" info ={this.state.info} photos = { this.state.photos } />
+                    <PhotoGrid className="row" info ={this.state.info} photos = { this.state.photos } />
 
-                    <div class="row" style={{marginTop:"5pc"}}>
+                    <div className="row" style={{marginTop:"5pc"}}>
                         
-                        <div class="col-9" style={{height:"50vh"}}>
-                            {this.state.info.filters.wifi == "true" && (<span class=" badge badge-primary" style={{marginLeft:"1%",marginTop:"2%",fontSize:"15px"}}>Wifi</span>)}
-                            {this.state.info.filters.airco == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Κλιματισμός</span>)}
-                            {this.state.info.filters.heat == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Θέρμανση</span>)}
-                            {this.state.info.filters.kitchen == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Κουζίνα</span>)}
-                            {this.state.info.filters.parking == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Χώρος Στάθμευσης</span>)}
-                            {this.state.info.filters.elevator == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Ανελκυστήρας</span>)}
-                            {this.state.info.filters.tv == "true"  && (<span class=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Τηλεόραση</span>)}
-                            <h2 class="row" style={{marginTop:"10px"}} >Διεύθυνση</h2>
+                        <div className="col-9" style={{height:"50vh"}}>
+                            {this.state.info.filters.wifi == "true" && (<span className=" badge badge-primary" style={{marginLeft:"1%",marginTop:"2%",fontSize:"15px"}}>Wifi</span>)}
+                            {this.state.info.filters.airco == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Κλιματισμός</span>)}
+                            {this.state.info.filters.heat == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Θέρμανση</span>)}
+                            {this.state.info.filters.kitchen == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Κουζίνα</span>)}
+                            {this.state.info.filters.parking == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Χώρος Στάθμευσης</span>)}
+                            {this.state.info.filters.elevator == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Ανελκυστήρας</span>)}
+                            {this.state.info.filters.tv == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Τηλεόραση</span>)}
+                            <h2 className="row" style={{marginTop:"10px"}} >Διεύθυνση</h2>
                             <p >{this.state.info.location.address}  {this.state.info.location.area}</p>
 
 
 
-                            <h2 class="row" style={{marginTop:"10px"}}> Περιγραφή Διαμερίσματος</h2>
+                            <h2 className="row" style={{marginTop:"10px"}}> Περιγραφή Διαμερίσματος</h2>
                             <p >{this.state.info.description} </p>
 
 
                         </div>
-                        { localStorage.getItem('user') != null && this.state.flag != 0 && (
-                            <div class="col-3" style={{height:"50vh",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}>
+                        {localStorage.getItem('user') != null && this.state.flag != 0 && (
+                            <div className="col-3" style={{height:"50vh",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}>
                                 <BookingButton ad={this.state.info}/>
+                                {!this.state.send && <button onClick={this.handleSend} className="btn btn-info w-100">Αποστολή Μηνύματος</button>}
+                                {this.state.send && 
+                                    <div>
+                                        <form onSubmit={this.sendMessage}>
+                                            <div className="form-group">
+                                                <textarea rows="4" type="text" value={this.state.message} className="form-control" onChange={this.handleMessage}/>
+                                            </div>
+                                            <button type="submit" className="btn btn-info w-100">Αποστολή</button>
+                                        </form>
+                                        <button className="btn btn-link" onClick={this.handleSend}>Άκυρο</button>
+                                    </div>
+                                }
                             </div>
                         )}
 
