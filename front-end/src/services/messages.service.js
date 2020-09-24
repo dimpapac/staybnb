@@ -1,7 +1,7 @@
 import apiUrl from './apiUrl'
 
 export const messagesService = {
-    send_message
+    send_message,
     get_message,
     get_inbox,
     get_sent,
@@ -22,21 +22,24 @@ function handleResponse(response) {
 }
 
 
-function send_message(sender_id, receiver_id, message) {
+function send_message(sender, receiver, message) {
     const requestOptions = {
         mode: 'cors',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-            sender_id,
-            receiver_id,
+            sender,
+            receiver,
             message
         })
     };
 
+    console.log('sending message')
+
     return fetch(`${apiUrl}/messages/sendmessage`, requestOptions)
     .then(response => response.json())
     .then(response => {
+        console.log(response)
         return response;
     });  
 }
