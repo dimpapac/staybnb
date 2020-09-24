@@ -12,6 +12,7 @@ import AdRegister from './components/AdRegister'
 import HostPage from './components/HostPage'
 import Bookings from './components/Bookings'
 import Profile from './components/Profile'
+import Messages from './components/Messages'
 
 import { Switch, Route , Redirect} from 'react-router-dom'
 
@@ -45,6 +46,7 @@ class App extends Component
             <Route path='/host' component={HostPage} history={this.props.history} />
             <Route path='/bookings' component={Bookings} history={this.props.history} />
             <Route path='/profile' component={Profile} history={this.props.history} />
+            <Route path='/messages' component={Messages} history={this.props.history} />
           </Switch>
         </div>
       );

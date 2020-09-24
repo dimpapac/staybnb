@@ -22,7 +22,7 @@ function handleResponse(response) {
 }
 
 
-function send_message(sender, receiver, message) {
+function send_message(sender, receiver, message, sender_username, receiver_username) {
     const requestOptions = {
         mode: 'cors',
         method: 'POST',
@@ -30,7 +30,9 @@ function send_message(sender, receiver, message) {
         body: JSON.stringify({ 
             sender,
             receiver,
-            message
+            message,
+            sender_username,
+            receiver_username
         })
     };
 

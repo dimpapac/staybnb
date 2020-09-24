@@ -80,10 +80,12 @@ class AdPreview extends Component {
     sendMessage(event){
         event.preventDefault()
         const id = JSON.parse(localStorage.getItem('user'))._id
+        const username = JSON.parse(localStorage.getItem('user')).username
         const receiver_id = this.state.info.hostId
+        const host_username = this.state.info.hostName
         if (this.state.message) {
             console.log('message exists')
-            messagesService.send_message(id, receiver_id, this.state.message)
+            messagesService.send_message(id, receiver_id, this.state.message, username, host_username)
         }
     }
 
