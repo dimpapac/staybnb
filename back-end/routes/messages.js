@@ -21,6 +21,8 @@ router.post('/sendmessage', function(req, res, next) {
 		sender_id : req.body.sender,
 		receiver_id: req.body.receiver,
 		message : req.body.message,
+		sender_username : req.body.sender_username,
+		receiver_username : req.body.receiver_username,
 		read: false,
 		time : today
 	}, function(err, message) {

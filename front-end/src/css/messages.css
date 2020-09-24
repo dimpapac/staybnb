@@ -1,0 +1,24 @@
+.notification {
+	font-weight:  bold !important;
+}
+
+.nav-pills .nav-link.active {
+	background-color: #00a699 !important;
+	color: white !important;
+}
+
+.nav-pills .nav-link {
+	color: #00a699 !important;
+}
+
+.apprbutton {
+	background-color: rgb(63, 151, 97);
+	color: white;
+}
+
+.disbutton {
+	background-color: rgb(194, 77, 73);
+	color: white;
+	padding: 3px 6px;
+	margin-top: 4px!important;
+}
