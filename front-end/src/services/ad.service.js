@@ -103,6 +103,7 @@ function add_ad(ad){
     data.append('tv',ad.tv)
     data.append('elevator',ad.elevator)
     data.append('hostId',ad.hostId)
+    data.append('hostName',ad.hostName)
     const requestOptions = {
 		mode: 'cors',
 		method: 'POST',

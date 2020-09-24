@@ -35,7 +35,9 @@ class AdRegister extends Component {
             heat : false,
             airco : false,
             wifi : false,
-            hostId : JSON.parse(localStorage.getItem('user'))._id
+            hostId : JSON.parse(localStorage.getItem('user'))._id,
+            hostName : JSON.parse(localStorage.getItem('user')).username
+
         } 
 
         this.locationHandler = this.locationHandler.bind(this);

@@ -132,7 +132,8 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 				kitchen : req.body.kitchen, 
 				parking : req.body.parking,
 			},
-			hostId : hostId
+			hostId : hostId,
+			hostName : req.body.hostName
 		}
 		 ,function(err,mess) {
 		if (err) {
@@ -250,7 +251,8 @@ router.post("/updateReview",function(req, res, next){
 		{ 
 			_id : id
 		},{
-			$inc: { totalReviews: 1 }
+			$inc: { totalReviews: 1 },
+			$push: { reviews : { text : req.body.text , stars : req.body.stars } }
 		}
 		,function(err,mess) {
 		if (err) {
@@ -271,35 +273,5 @@ router.post("/updateReview",function(req, res, next){
 	
 });
 
-router.post("/updateReview",function(req, res, next){
-	const format = req.query.format
-	let id = mongojs.ObjectID(req.body.adId)
-	db.Ads.update(
-		{ 
-			_id : id
-		},{
-			$inc: { totalReviews: 1 }
-		},
-		{
-			$push: { reviews: { text : req.body.text , stars : req.body.stars } }
-		}
-		,function(err,mess) {
-		if (err) {
-			if (format && format === "xml")
-				res.send(json2xml(err))
-			else
-				res.send(err);
-			return;
-		}
-		else{
-			if (format && format === "xml")
-				res.send(json2xml({ text : "review added"}))
-			else
-				res.send({ text : "review added"});
-			return;
-		}
-	})
-	
-});
 
 module.exports = router;
