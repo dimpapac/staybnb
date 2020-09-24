@@ -10,6 +10,9 @@ const jwt = require('./jwt');
 const base = require('./routes/base');
 const ads = require('./routes/ads');
 const messages = require('./routes/messages');
+const bookings = require('./routes/bookings');
+
+
 
 // declare vars
 const options = {
@@ -37,6 +40,7 @@ app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use('/staybnb/api/', base);
 app.use('/staybnb/api/ads', ads);
 app.use('/staybnb/api/messages', messages);
+app.use('/staybnb/api/bookings', bookings);
 app.use('uploads/',express.static('uploads'));
 
 

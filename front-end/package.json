@@ -10,6 +10,7 @@
     "axios": "^0.20.0",
     "background-image": "0.0.1-security",
     "date-fns": "^2.16.1",
+    "dateformat": "^3.0.3",
     "form-data": "^3.0.0",
     "gatsby-background-image": "^1.1.2",
     "google-maps": "^4.3.2",

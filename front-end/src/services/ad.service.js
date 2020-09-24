@@ -4,7 +4,8 @@ export const adService = {
     get_available_ads,
     get_ad,
     add_booking,
-    add_ad
+    add_ad,
+    add_review
 };
 
 
@@ -114,5 +115,9 @@ function add_ad(ad){
 		.then(text => {
 			return text;
 		})
+}
+
+function add_review(text,stars,adId,userid,username){
+    console.log(text,stars,adId,userid,username)
 }
 

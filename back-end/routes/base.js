@@ -121,11 +121,6 @@ router.post('/registerUser', function(req, res, next) {
 		}
 	});
 
-    // // hash password
-    // if (req.body.password) {
-    //     user.hash = bcrypt.hashSync(userParam.password, 10);
-    // }
-
 
 });
 
