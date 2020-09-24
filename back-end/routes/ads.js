@@ -25,9 +25,6 @@ const fileFilter = (req,file,cb) => {
 
 const upload = multer({
 	storage : storage ,
-	limits : {
-		fileSize : 1024 * 1024 * 5
-	},
 	fileFilter : fileFilter
 })
 
@@ -224,5 +221,92 @@ router.post("/addBooking",function(req, res, next){
 	
 });
 
+router.post("/addReview",function(req, res, next){
+	const format = req.query.format
+	db.Reviews.insert(
+		{ 
+			userId: mongojs.ObjectID(req.body.hostId),
+			username: mongojs.ObjectID(req.body.renterId),
+			adId: mongojs.ObjectID(req.body.adId),
+			text: req.body.text,
+			stars: req.body.stars
+		}
+		,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "review added"}))
+			else
+				res.send({ text : "review added"});Z
+			return;
+		}
+	})
+	
+});
+
+router.post("/updateReview",function(req, res, next){
+	const format = req.query.format
+	let id = mongojs.ObjectID(req.body.adId)
+	db.Ads.update(
+		{ 
+			_id : id
+		},{
+			$inc: { totalReviews: 1 }
+		}
+		,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "review added"}))
+			else
+				res.send({ text : "review added"});
+			return;
+		}
+	})
+	
+});
+
+router.post("/updateReview",function(req, res, next){
+	const format = req.query.format
+	let id = mongojs.ObjectID(req.body.adId)
+	db.Ads.update(
+		{ 
+			_id : id
+		},{
+			$inc: { totalReviews: 1 }
+		},
+		{
+			$push: { reviews: { text : req.body.text , stars : req.body.stars } }
+		}
+		,function(err,mess) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else{
+			if (format && format === "xml")
+				res.send(json2xml({ text : "review added"}))
+			else
+				res.send({ text : "review added"});
+			return;
+		}
+	})
+	
+});
 
 module.exports = router;

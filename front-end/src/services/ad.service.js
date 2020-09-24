@@ -118,6 +118,24 @@ function add_ad(ad){
 }
 
 function add_review(text,stars,adId,userid,username){
-    console.log(text,stars,adId,userid,username)
+    const requestOptions = {
+		mode: 'cors',
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ 
+            text,
+            stars,
+            adId,
+            userid,
+            username
+		})
+    };
+
+	return fetch(`${apiUrl}/ads/addReview`, requestOptions)
+		.then(handleResponse)
+		.then(text => {
+			return text;
+		})
 }
+
 
