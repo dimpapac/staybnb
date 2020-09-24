@@ -99,6 +99,13 @@ class AdPreview extends Component {
         });
     }
 
+    handleReviewSubmit(){
+        const id = JSON.parse(localStorage.getItem('user'))._id
+        const username = JSON.parse(localStorage.getItem('user')).username
+        adService.add_review(this.state.reviewText,this.state.stars,this.state.info._id,id,username)
+        this.handleClose()
+    }
+
     handleShow(){
         this.setState({ 
             setShow: true

@@ -14,6 +14,7 @@ const bookings = require('./routes/bookings');
 
 
 
+
 // declare vars
 const options = {
 	key: fs.readFileSync("./server.key"),
