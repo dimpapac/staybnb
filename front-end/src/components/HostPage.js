@@ -13,6 +13,10 @@ class HostPage extends Component
         this.state = {
 
         };
+        let user = JSON.parse(localStorage.getItem("user"))
+        if ((user && user.userType!==2) || !user) {
+            this.props.history.push('/')
+        }
     }
 
     render() {

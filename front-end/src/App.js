@@ -27,6 +27,8 @@ class App extends Component
         this.state = {
             token: props.userData.token,
             username: props.userData.username,
+            userType: 3,
+
 
             setUserData: (token, username) => this.setState({
                 token: token,
@@ -35,12 +37,28 @@ class App extends Component
         };
     }
 
+    componentDidMount(){
+        let user = JSON.parse(localStorage.getItem("user"))
+        console.log("app", user)
+        if (user){
+
+            this.setState({
+                userType: user.userType
+            });
+        } 
+        else{
+            this.setState({
+                userType: 3
+            });
+        }
+    }
+
     render() {
       return (
         <div>
           <NavBar history={this.props.history}/>
           <Switch >
-            <Route exact path='/' component={MainPage} history={this.props.history} />
+            <Route exact path='/' component={() => <MainPage userType={this.state.userType}/>} history={this.props.history} />
             <Route path='/ads' component={AdList} history={this.props.history} />
             <Route path='/help' component={Help} history={this.props.history} />
             <Route path='/preview' component={AdPreview} history={this.props.history} />

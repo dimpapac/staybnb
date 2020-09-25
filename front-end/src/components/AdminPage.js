@@ -10,7 +10,13 @@ class AdminPage extends Component
         this.state = {
 
         };
+
+        let user = JSON.parse(localStorage.getItem("user"))
+        if ((user && user.userType!==0) || !user) {
+            this.props.history.push('/')
+        }
     }
+
 
     render() {
         return (

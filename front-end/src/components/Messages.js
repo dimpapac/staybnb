@@ -89,13 +89,16 @@ class Messages extends Component {
     }
 
     handleOpenReply(i) {
+    	this.setState({
+    		message: null
+    	})
 
     	this.setState(state => {
 			const sendFlags = state.sendFlags.map((item, j) => {
 				if (Number(j) === Number(i))
 					return !item;
 				else
-					return item;
+					return false;
 			});
 			return {
 				sendFlags,

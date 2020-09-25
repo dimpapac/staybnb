@@ -144,7 +144,6 @@ class NavBar extends Component {
     doLogout = (event) => {
         authenticationService.logout();
         this.setState({userType: 3});
-        this.render()
         this.props.history.push('/');
     }
 
