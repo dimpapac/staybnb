@@ -42,7 +42,7 @@ class PhotoGrid extends Component {
             <div>
             { this.state.photos.length == 1 && (
                 <div class="row">
-                    <img  class="img img-responsive " style={{borderRadius:"25px",width:"80%",height:"45vh"}} src={this.state.photos[0]}/>
+                    <img  class="img img-responsive " style={{borderRadius:"25px",width:"80%",height:"45vh",marginLeft:"10%"}} src={this.state.photos[0]}/>
                 </div>
             )}
 
