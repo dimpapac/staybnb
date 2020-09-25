@@ -28,6 +28,7 @@ class App extends Component
             token: props.userData.token,
             username: props.userData.username,
             userType: 3,
+            startComp : MainPage,
 
 
             setUserData: (token, username) => this.setState({
@@ -35,16 +36,27 @@ class App extends Component
                 username: username,
             }),
         };
+        this.mainPageHandler = this.mainPageHandler.bind(this);
     }
 
     componentDidMount(){
         let user = JSON.parse(localStorage.getItem("user"))
-        console.log("app", user)
         if (user){
 
             this.setState({
                 userType: user.userType
             });
+
+            if ( user.userType == 2 ){
+                this.setState({
+                    startComp: HostPage
+                });
+            }
+            else if ( user.userType == 0 ){
+                this.setState({
+                    startComp: AdminPage
+                });
+            }
         } 
         else{
             this.setState({
@@ -53,12 +65,19 @@ class App extends Component
         }
     }
 
+
+    mainPageHandler( comp ){
+        this.setState({
+            startComp : comp
+        });
+    }
+
     render() {
       return (
         <div>
-          <NavBar history={this.props.history}/>
+          <NavBar action={this.mainPageHandler} history={this.props.history}/>
           <Switch >
-            <Route exact path='/' component={() => <MainPage userType={this.state.userType}/>} history={this.props.history} />
+            <Route exact path='/' component={this.state.startComp} history={this.props.history} />
             <Route path='/ads' component={AdList} history={this.props.history} />
             <Route path='/help' component={Help} history={this.props.history} />
             <Route path='/preview' component={AdPreview} history={this.props.history} />

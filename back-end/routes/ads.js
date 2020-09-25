@@ -78,7 +78,7 @@ router.get('/available', function(req, res, next) {
 		else {
 			let result = invalidBookings.map(a => mongojs.ObjectID(a.adId) )
 			console.log(result)
-			db.Ads.find( { $and : [{ _id : { $nin: result } } , {'location.area' : location }  ] } ).limit(count).skip(start , function(err , ads ){
+			db.Ads.find( { $and : [{ _id : { $nin: result } } , {'location.area' : location } ,{ capacity : { $gte : visitors }} ] } ).sort( { price : 1 } ).limit(count).skip(start , function(err , ads ){
 				if (err) {
 					if (format && format === "xml")
 						res.send(json2xml(err))
@@ -112,7 +112,7 @@ router.post("/newAd",upload.array('productImage'),function(req,res,next){
 			title: req.body.title ,
 			price : req.body.price, 
 			type : req.body.type,
-			capacity : req.body.capacity,
+			capacity : parseInt(req.body.capacity),
 			photos: photos,
 			location: {
 				area: req.body.area,
@@ -309,6 +309,29 @@ router.post("/updateUser",function(req, res, next){
 		}
 	})
 	
+});
+
+// GET all available ads in dates given
+router.post('/hostAds', function(req, res, next) {
+
+	const format = req.query.format;
+	let id = mongojs.ObjectID(req.body.id)
+
+	db.Ads.find({ hostId : id }, function(err, ads) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		else {
+			if (format && format === "xml")
+				res.send(json2xml(ads))
+			else
+				res.json(ads)
+		}
+	});
 });
 
 

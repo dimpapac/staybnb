@@ -6,7 +6,8 @@ export const adService = {
     add_booking,
     add_ad,
     add_review,
-    update_user
+    update_user,
+    get_host_ads
 };
 
 
@@ -159,6 +160,26 @@ function update_user( userId , fName , lName , email ){
     };
         
         return fetch(`${apiUrl}/ads/updateUser`, requestOptions)
+		.then(handleResponse)
+		.then(text => {
+			return text;
+        })
+        
+
+}
+
+function get_host_ads(id){
+
+    const requestOptions = {
+		mode: 'cors',
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ 
+            id
+        })
+    };
+        
+        return fetch(`${apiUrl}/ads/hostAds`, requestOptions)
 		.then(handleResponse)
 		.then(text => {
 			return text;

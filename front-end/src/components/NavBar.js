@@ -3,6 +3,7 @@ import logo from '../icons/mainlogo.png'
 import '../css/navbar.css';
 import Modal from 'react-bootstrap/Modal'
 import { authenticationService } from '../services/authentication.service';
+import MainPage from './MainPage'
 
 import NavBarMenu from './NavBarMenu';
 
@@ -144,6 +145,7 @@ class NavBar extends Component {
     doLogout = (event) => {
         authenticationService.logout();
         this.setState({userType: 3});
+        this.props.action(MainPage)
         this.props.history.push('/');
     }
 

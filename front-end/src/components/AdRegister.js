@@ -6,7 +6,7 @@ import AutoCompleteLoc from './AutoCompleteLoc'
 
 import { adService } from '../services/ad.service'
 import GMap from './Gmap'
-
+import { withRouter } from 'react-router'
 
 
 
@@ -86,6 +86,7 @@ class AdRegister extends Component {
 
     handleSubmit() {
         adService.add_ad(this.state);
+        this.props.history.push('/host')
         
     }
 
@@ -184,8 +185,22 @@ class AdRegister extends Component {
 
                     <div>
                         <div className="form-group">
+                            <label htmlFor="location">Συνοικία</label>
+                            <input type="text" className="form-control" value={this.state.location} onChange={this.handleTextArea} name="location"  placeholder=" Συνοικία"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="form-group">
                             <label htmlFor="location">Πόλη</label>
-                            <AutoCompleteLoc  className="form-control" value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
+                            <input type="text" className="form-control" placeholder=" Πόλη"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="form-group">
+                            <label htmlFor="location">Χώρα</label>
+                            <input type="text" className="form-control"  placeholder="Χώρα"/>
                         </div>
                     </div>
 
@@ -232,4 +247,4 @@ class AdRegister extends Component {
     }
 }
 
-export default AdRegister;
+export default withRouter(AdRegister);
