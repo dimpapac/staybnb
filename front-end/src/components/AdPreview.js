@@ -23,6 +23,7 @@ class AdPreview extends Component {
     constructor (props , context) {
         super( props , context )
         this.state = {
+            score : 0,
             loading : true,
             info : null,
             photos : null,
@@ -73,6 +74,18 @@ class AdPreview extends Component {
                 flag : this.props.location.state.flag
             })
         }  
+
+        if (this.state.info) {
+            let sum = 0
+            if( this.state.info.reviews ){
+                this.state.info.reviews.map(review => {
+                    sum = sum + parseInt(review.stars)
+                })
+            }
+            this.setState({
+                score : sum / this.state.info.totalReviews
+            })
+        }
 
     }
 
@@ -182,9 +195,19 @@ class AdPreview extends Component {
                             {this.state.info.filters.parking == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Χώρος Στάθμευσης</span>)}
                             {this.state.info.filters.elevator == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Ανελκυστήρας</span>)}
                             {this.state.info.filters.tv == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Τηλεόραση</span>)}
+
+
+                            <h2 className="row" style={{marginTop:"10px"}}>Τιμή ανά βράδυ</h2>
+                            <p >{this.state.info.price} </p>
+
+                            <h2 className="row" style={{marginTop:"10px"}}>Τύπος Χώρου</h2>
+                            <p >{this.state.info.type} </p>
+
+                            <h2 className="row" style={{marginTop:"10px"}}>Μέγιστη Χωρητικότητα</h2>
+                            <p >{this.state.info.capacity} </p>
+
                             <h2 className="row" style={{marginTop:"10px"}} >Διεύθυνση</h2>
                             <p >{this.state.info.location.address}  {this.state.info.location.area}</p>
-
 
 
                             <h2 className="row" style={{marginTop:"10px"}}> Περιγραφή Διαμερίσματος</h2>
@@ -246,6 +269,19 @@ class AdPreview extends Component {
                     <h2 style={{marginTop:"10px"}}>Πληροφορίες Τοποθεσίας</h2>
                     <p >{this.state.info.locationInfo}</p>
 					<Gmap withMarkers={true}ads = {[this.state.info]} height={"40vh"} width={"100%"} marginTop={"10px"}/>
+
+                    { this.state.info.totalReviews > 0 && (
+                        <div>
+                        <h2 className="row " style={{marginTop:"10pc"}} >Αξιολογήσεις</h2>
+                        <ul class=" list-group overflow-scroll" style={{height:"5pc",marginBottom:"10%"}}>
+                            {this.state.info.reviews.map( review => {
+                                return(
+                                <li class="list-group-item">{review.text}</li>
+                                )
+                            })}
+                        </ul>
+                        </div>
+                    )}
  
                 </div>
             )}

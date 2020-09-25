@@ -8,7 +8,8 @@ class AdListItem extends Component {
         this.state = {
             info : props.ad,
             hover: false,
-            flag: this.props.flag
+            flag: this.props.flag,
+            score : null
         }
         this.toggleHover = this.toggleHover.bind(this);
     }
@@ -17,7 +18,22 @@ class AdListItem extends Component {
         this.setState({hover: !this.state.hover})
     }
 
+    componentDidMount(){
+        let sum = 0
+        if( this.state.info.reviews ){
+            this.state.info.reviews.map(review => {
+                sum = sum + parseInt(review.stars)
+            })
+        }
+        this.setState({
+            score : sum / this.state.info.totalReviews
+        })
+        
+    }
+
     render() { 
+
+
         var linkStyle;
         if (this.state.hover) {
             linkStyle = {color: '#ed1212',cursor: 'pointer'}
@@ -32,8 +48,6 @@ class AdListItem extends Component {
                 console.log("As")
                 flag = 1
             }
-            console.log(filterValues[i] )
-            console.log(this.state.info.filters.[filters[i]] )
         }
         if (flag == 0) {
         return (
@@ -72,6 +86,11 @@ class AdListItem extends Component {
                             <div class="row">      
                             <p class="mb-1 ">{this.state.info.totalReviews} Αξιολογήσεις</p>
                             </div>
+                            { this.state.info.totalReviews > 0 && (
+                                <div class="row">      
+                                    <p class="mb-1 ">{this.state.score} / 5 Αστέρια</p>
+                                </div>
+                            )}
                     </div>
                 </div>
                 </a>
