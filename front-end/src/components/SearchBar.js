@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import logo from '../icons/mainlogo.png' 
 import '../css/searchbar.css';
-import { Button } from 'react-bootstrap'
-import Modal from 'react-bootstrap/Modal'
 import { withRouter } from 'react-router'
 
 import AutoCompleteLoc from './AutoCompleteLoc'
@@ -21,6 +19,8 @@ class SearchBar extends Component {
             startDate: null,
             endDate: null,
             location: "",
+            city: "",
+            country: "",
             visitors: 1
         }
 
@@ -29,11 +29,12 @@ class SearchBar extends Component {
         this.handleVisitors = this.handleVisitors.bind(this);
         this.handleMinus = this.handleMinus.bind(this);
         this.handlePlus = this.handlePlus.bind(this);
+        this.handleTextArea = this.handleTextArea.bind(this);
 
     }
 
     handleSearchButton(item) {
-        this.state.startDate && this.props.history.push({
+        this.state.startDate && this.state.location && this.props.history.push({
             pathname: item,
             state: {
                 startDate: this.state.startDate._d,
@@ -61,6 +62,14 @@ class SearchBar extends Component {
             })
     }
 
+    handleTextArea = event => {
+        const {name,value} = event.target;
+        this.setState({
+            [name]: value
+        })
+        event.preventDefault();
+    };
+
     handleMinus() {
         this.state.visitors > 1 && this.setState({
             visitors : this.state.visitors - 1
@@ -68,20 +77,28 @@ class SearchBar extends Component {
     }
 
     handlePlus() {
-        this.setState({
-            visitors : this.state.visitors + 1
-        })
+            this.setState({
+                visitors : this.state.visitors + 1
+            })
     }
 
     render() { 
         return (
             <React.Fragment>
                 <div className="row m-0">
-                    <div className="col-2 p-0"/>
-                    <div className="col-8 border-bottom mt-2 p-0">
+                    <div className="col-1 p-0"/>
+                    <div className="col-10 border-bottom mt-2 p-0">
                         <form className="form-inline">
+
                             <div className="form-group mb-2">
-                                <AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>
+                                {/*<AutoCompleteLoc value={this.state.location} handleLocation={this.handleLocation} name="location" required/>*/}
+                                <input style={{height:'47.5px', borderRadius: '1px'}} className="form-control input-group-text m-2" value={this.state.location} onChange={this.handleTextArea} name="location" placeholder="Συνοικία" required/>
+                            </div>
+                            <div className="form-group mb-2">
+                                <input style={{height:'47.5px', borderRadius: '1px'}} className="form-control input-group-text m-2" value={this.state.city} onChange={this.handleTextArea} name="city" placeholder="Πόλη" required/>
+                            </div>
+                            <div className="form-group mb-2">
+                                <input style={{height:'47.5px', borderRadius: '2px'}} className="form-control input-group-text m-2" value={this.state.country} onChange={this.handleTextArea} name="country" placeholder="Χώρα" required/>
                             </div>
                             <div className="form-group mx-sm-3 mb-2">
                                 <DateRangePicker
@@ -106,7 +123,7 @@ class SearchBar extends Component {
                             <button style={{height:'47.5px'}} type="submit" className="btn btn-info mb-2" onClick={() => this.handleSearchButton("/ads")}>Search</button>
                         </form>
                     </div>
-                    <div className="col-2 p-0"/>
+                    <div className="col-1 p-0"/>
 
                 </div>
             </React.Fragment>
