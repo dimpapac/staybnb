@@ -33,6 +33,7 @@ class BookingButton extends Component {
         startDate : null,
         endDate : null
        })
+       this.props.history.push('/')
     };
 
 

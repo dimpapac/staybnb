@@ -120,7 +120,7 @@ class SearchBar extends Component {
                                     <span style={{height:'47.5px', borderRadius: '2px'}} className="btn input-group-text" onClick={this.handlePlus}>+</span>
                                 </div>
                             </div>
-                            <button style={{height:'47.5px'}} type="submit" className="btn btn-info mb-2" onClick={() => this.handleSearchButton("/ads")}>Search</button>
+                            <button style={{height:'47.5px'}} type="submit" className="btn btn-info mb-2" onClick={() => this.handleSearchButton("/ads")}>Αναζήτηση</button>
                         </form>
                     </div>
                     <div className="col-1 p-0"/>

@@ -82,7 +82,7 @@ class HostPage extends Component
       return (
         <div style = {{ marginTop : "10px"}}>
           { this.state.no_posts &&
-          <button style={{height:'47.5px'}} type="submit" className=" btn btn-primary mb-2" onClick={() => this.props.history.push("/newAd")}>Προσθήκη καταλύματος</button>
+          <button style={{height:'47.5px'}} type="submit" className=" btn btn-primary mb-2 ml-2" onClick={() => this.props.history.push("/newAd")}>Προσθήκη καταλύματος</button>
           } 
         { !this.state.no_posts && ( 
           <div class ="float-left"  className = "scrolls " style={{width:"58%",float:"left",marginLeft:"10px" , height: "85vh" ,overflow: "scroll"}}>

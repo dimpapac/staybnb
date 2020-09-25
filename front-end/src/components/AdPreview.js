@@ -30,6 +30,7 @@ class AdPreview extends Component {
             reviewText : "" ,
             stars : 0,
             send: false,
+            sendFlag: false,
             message: null,
             requestInfo : null
         }
@@ -93,6 +94,9 @@ class AdPreview extends Component {
             console.log('message exists')
             messagesService.send_message(id, receiver_id, this.state.message, username, host_username)
         }
+        this.setState({ 
+            sendFlag: true
+        });
     }
 
     handleSend(){
@@ -190,7 +194,7 @@ class AdPreview extends Component {
                         </div>
                         {localStorage.getItem('user') != null && this.state.flag != 0 && this.state.flag != 2 && this.state.flag != 3 && (
                             <div className="col-3" style={{height:"50vh",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}>
-                                <BookingButton ad={this.state.info}/>
+                                <BookingButton history={this.props.history} ad={this.state.info}/>
                                 {!this.state.send && <button onClick={this.handleSend} className="btn btn-info w-100">Αποστολή Μηνύματος</button>}
                                 {this.state.send && 
                                     <div>
@@ -203,6 +207,9 @@ class AdPreview extends Component {
                                         <button className="btn btn-link" onClick={this.handleSend}>Άκυρο</button>
                                     </div>
                                 }
+                                {this.state.sendFlag && <div className="alert alert-success mt-0"role="alert">
+                                  Το μήνυμα στάλθηκε
+                                </div>}
                             </div>
                         )}
 
