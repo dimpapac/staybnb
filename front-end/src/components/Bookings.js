@@ -38,7 +38,7 @@ class Bookings extends Component
           {this.state.bookings.map((booking) => {//Loop through every row of the json file and get the attributes
 							return (
 								<div  class="list-group" style={{marginTop:"1%"}}>
-                  <BookingListItem booking={booking}/>
+                  <BookingListItem flag={0} booking={booking}/>
 								</div>
 							)     			
 						})}	

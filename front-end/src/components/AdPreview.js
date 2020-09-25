@@ -8,9 +8,11 @@ import Gmap from './Gmap'
 import BookingButton from './BookingButton'
 
 import { adService } from '../services/ad.service'
+import { bookingService } from '../services/booking.service'
 import { messagesService } from '../services/messages.service'
+import { withRouter } from 'react-router'
 
-
+const dateFormat = require('dateformat');
 
 
 
@@ -28,7 +30,8 @@ class AdPreview extends Component {
             reviewText : "" ,
             stars : 0,
             send: false,
-            message: null
+            message: null,
+            requestInfo : null
         }
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -37,6 +40,8 @@ class AdPreview extends Component {
         this.handleSend = this.handleSend.bind(this);
         this.handleMessage = this.handleMessage.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.handleReject = this.handleReject.bind(this);
+        this.handleAccept = this.handleAccept.bind(this);
     } 
 
     handleTextArea = event => {
@@ -67,6 +72,7 @@ class AdPreview extends Component {
                 flag : this.props.location.state.flag
             })
         }  
+
     }
 
 
@@ -120,12 +126,44 @@ class AdPreview extends Component {
         });
     };
 
+    handleAccept(){
+        const id = this.props.location.state.id
+        const hostId = this.props.location.state.hostId
+        const renterId = this.props.location.state.renterId
+        const adId = this.props.location.state.adId
+        const bookedFrom = this.props.location.state.bookedFrom
+        const bookedTill = this.props.location.state.bookedTill
+        const hostName = this.props.location.state.hostName
+        const username = this.props.location.state.username
+
+        bookingService.booking_remove(id)
+
+        bookingService.booking_accept(id,hostId,renterId,adId,bookedFrom,bookedTill,hostName,username)
+        this.props.history.push('requests')
+    }
+
+    handleReject(){
+        const id = this.props.location.state.id
+        bookingService.booking_remove(id)
+        this.props.history.push('requests')
+    }
+
     render() { 
 
         return (
             <div>
             { !this.state.loading && (
                 <div className="container">
+                    { this.state.flag ==2 && (
+                            <div style={{width:"50%",marginLeft:"25%",marginTop:"20px",marginBottom:"20px",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}> 
+                                <h5 class="text-center">Όνομα Χρήστη : {this.props.location.state.username}</h5>
+                                <h5 class="text-center">Από : {dateFormat(this.props.location.state.bookedFrom, "dd-mm-yyyy")}</h5>
+                                <h5 class="text-center">Μέχρι : {dateFormat(this.props.location.state.bookedTiill, "dd-mm-yyyy")}</h5>
+                                <button  type="button" className=" btn btn-success" style={{marginLeft:"25%",marginTop:"10px",width:"24%",marginBottom:"10px"}} onClick={this.handleAccept}>Αποδοχή</button>
+                                <button  type="button" className=" btn btn-danger" style={{marginLeft:"1%",marginTop:"10px",width:"24%",marginBottom:"10px"}} onClick={this.handleReject}>Απόρριψη</button>
+                            </div>
+                    )}
+
                     <h1 className="row" >{this.state.info.title}</h1>
 
                     <PhotoGrid className="row" info ={this.state.info} photos = { this.state.photos } />
@@ -150,7 +188,7 @@ class AdPreview extends Component {
 
 
                         </div>
-                        {localStorage.getItem('user') != null && this.state.flag != 0 && (
+                        {localStorage.getItem('user') != null && this.state.flag != 0 && this.state.flag != 2 && (
                             <div className="col-3" style={{height:"50vh",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}>
                                 <BookingButton ad={this.state.info}/>
                                 {!this.state.send && <button onClick={this.handleSend} className="btn btn-info w-100">Αποστολή Μηνύματος</button>}
@@ -210,4 +248,4 @@ class AdPreview extends Component {
     }
 }
 
-export default AdPreview;
+export default withRouter(AdPreview);

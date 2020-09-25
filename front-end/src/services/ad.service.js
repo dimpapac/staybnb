@@ -55,7 +55,7 @@ function get_ad(id ) { //only control center makes this call
 
 }
 
-function add_booking(hostId,renterId,adId,bookedFrom,bookedTill,hostName){
+function add_booking(hostId,renterId,adId,bookedFrom,bookedTill,hostName,username){
     const requestOptions = {
 		mode: 'cors',
 		method: 'POST',
@@ -66,7 +66,8 @@ function add_booking(hostId,renterId,adId,bookedFrom,bookedTill,hostName){
 			adId,
 			bookedFrom,
             bookedTill,
-            hostName
+            hostName,
+            username
 		})
 	};
 

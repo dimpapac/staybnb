@@ -188,14 +188,15 @@ router.get('/:id', function(req, res, next) {
 
 router.post("/addBooking",function(req, res, next){
 	const format = req.query.format
-	db.Bookings.insert(
+	db.BookingRequests.insert(
 		{ 
 			hostId: mongojs.ObjectID(req.body.hostId),
 			renterId: mongojs.ObjectID(req.body.renterId),
 			adId: mongojs.ObjectID(req.body.adId),
 			bookedFrom: new Date(req.body.bookedFrom),
 			bookedTill: new Date(req.body.bookedTill),
-			hostName : req.body.hostName
+			hostName : req.body.hostName,
+			username :req.body.username
 		}
 		,function(err,mess) {
 		if (err) {

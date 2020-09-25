@@ -8,7 +8,8 @@ class BookingListItem extends Component {
         super( props , context )
         this.state = {
             info : this.props.booking,
-            hover: false
+            hover: false,
+            flag : this.props.flag
         }
         this.toggleHover = this.toggleHover.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -48,13 +49,34 @@ class BookingListItem extends Component {
         return(
             <div  style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} style={{width:"80%",marginLeft:"10%"}} 
             onClick={ () => {
-                localStorage.setItem('ad', this.state.info.adId);
-                this.props.history.push({
-                    pathname: 'preview',
-                    state: {
-                        flag : 0
-                    }
-                });
+                if ( this.state.flag == 2 ){
+                    console.log(this.props.requestInfo)
+                    localStorage.setItem('ad', this.state.info.adId);
+                    this.props.history.push({
+                        pathname: 'preview',
+                        state: {
+
+                            id : this.state.info._id,
+                            hostId : this.state.info.hostId,
+                            renterId : this.state.info.renterId,
+                            adId : this.state.info.adId,
+                            bookedFrom : this.state.info.bookedFrom,
+                            bookedTill : this.state.info.bookedTill,
+                            hostName : this.state.info.hostName,
+                            username : this.state.info.username,
+                            flag : this.state.flag
+                        }
+                    });
+                }
+                else{
+                    localStorage.setItem('ad', this.state.info.adId);
+                    this.props.history.push({
+                        pathname: 'preview',
+                        state: {
+                            flag : this.state.flag
+                        }
+                    });
+                }
             }}>
                 <a key={this.state.info._id} class=" list-group-item list-group-item-action flex-column align-items-center " style={{width: "60%"}}>
                 <div class="row">
