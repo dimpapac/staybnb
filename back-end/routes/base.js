@@ -63,10 +63,16 @@ router.post('/login', function(req, res, next) {
 							}
 						}
 					, function(err, user) {
-						if (format && format === "xml")
-							res.send(json2xml(userRes))
-						else
-							res.json(userRes)
+
+						if( userRes.userType == 2 && userRes.approved == 0 ) {
+							res.status(400).json({ error: 'Not approved yet' })
+						}
+						else{
+							if (format && format === "xml")
+								res.send(json2xml(userRes))
+							else
+								res.json(userRes)
+						}
 					});
 				}
 				else {
@@ -100,7 +106,8 @@ router.post('/registerUser', function(req, res, next) {
 						firstName : req.body.firstName,
 						lastName : req.body.lastName
 					},
-					email : req.body.email
+					email : req.body.email,
+					approved : 0
 				}
 				 ,function(err,mess) {
 				if (err) {

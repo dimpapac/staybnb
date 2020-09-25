@@ -7,7 +7,10 @@ export const adService = {
     add_ad,
     add_review,
     update_user,
-    get_host_ads
+    get_host_ads,
+    get_users,
+    delete_user,
+    approve_user
 };
 
 
@@ -187,3 +190,56 @@ function get_host_ads(id){
         
 
 }
+
+function get_users(type){
+    const requestOptions = {
+		mode: 'cors',
+        method: 'POST',
+        headers : {"Content-Type" : 'application/json'  },
+		body: JSON.stringify({ 
+            type
+        })
+	};  
+
+    return fetch(`${apiUrl}/ads/users`, requestOptions)
+    .then(response => response.json())
+    .then(response => {
+        return response;
+    });	
+}
+
+function delete_user(id){
+    const requestOptions = {
+		mode: 'cors',
+        method: 'POST',
+        headers : {"Content-Type" : 'application/json'  },
+		body: JSON.stringify({ 
+            id
+        })
+	};  
+
+    return fetch(`${apiUrl}/ads/users/delete`, requestOptions)
+    .then(response => response.json())
+    .then(response => {
+        return response;
+    });	
+}
+
+function approve_user(id){
+    const requestOptions = {
+		mode: 'cors',
+        method: 'POST',
+        headers : {"Content-Type" : 'application/json'  },
+		body: JSON.stringify({ 
+            id
+        })
+	};  
+
+    return fetch(`${apiUrl}/ads/users/approve`, requestOptions)
+    .then(response => response.json())
+    .then(response => {
+        return response;
+    });	
+}
+
+

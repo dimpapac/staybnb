@@ -335,5 +335,66 @@ router.post('/hostAds', function(req, res, next) {
 });
 
 
+// GET all ads
+router.post('/users', function(req, res, next) {
+	const format = req.query.format;
+	if(req.body.type > 0){
+		return null
+	}
+
+	db.Users.find({},function(err, users) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		if (format && format === "xml")
+			res.send(json2xml(users))
+		else
+			res.json(users)
+	});
+});
+
+router.post('/users/delete', function(req, res, next) {
+    const format = req.query.format;
+    const id = mongojs.ObjectID(req.body.id)
+
+	db.Users.remove({ _id : id }, function(err, requests) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		if (format && format === "xml")
+			res.send(json2xml({text:"removed"}))
+		else
+			res.json({text:"removed"})
+	});
+});
+
+router.post('/users/approve', function(req, res, next) {
+    const format = req.query.format;
+    const id = mongojs.ObjectID(req.body.id)
+
+	db.Users.updateOne({ _id : id },{$set: { approved :  1 }},function(err, requests) {
+		if (err) {
+			if (format && format === "xml")
+				res.send(json2xml(err))
+			else
+				res.send(err);
+			return;
+		}
+		if (format && format === "xml")
+			res.send(json2xml({text:"removed"}))
+		else
+			res.json({text:"removed"})
+	});
+});
+
+
 
 module.exports = router;
