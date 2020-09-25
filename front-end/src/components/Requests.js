@@ -1,25 +1,29 @@
 import React, {Component} from 'react'
-import SearchBar from './SearchBar';
 import { withRouter } from 'react-router'
 
-class MainPage extends Component
+class Requests extends Component
 {
 
     constructor(props , context) 
     {
         super(props , context);
         this.state = {
-
+            
         };
     }
+
 
     render() {
         return (
             <div>
-              <SearchBar/>
+                <div className="container">
+                <br/>
+                    <h5>Αιτήματα</h5>
+
+                </div>
             </div>
         );
     }
 }
 
-export default withRouter(MainPage);
+export default withRouter(Requests);

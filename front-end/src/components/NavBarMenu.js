@@ -30,7 +30,7 @@ class NavBarMenu extends Component
                           <a className="nav-link" href="/bookings">Οι κρατήσεις μου</a>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link" href="#">Μηνύματα</a>
+                          <a className="nav-link" href="/messages">Μηνύματα</a>
                         </li>
                       </ul>
                     </div>
@@ -44,10 +44,10 @@ class NavBarMenu extends Component
                           <a className="nav-link" href="/host">Διαχείριση</a>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link" href="/help">Αιτήματα</a>
+                          <a className="nav-link" href="/requests">Αιτήματα</a>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link" href="#"></a>
+                          <a className="nav-link" href="/messages">Μηνύματα</a>
                         </li>
                       </ul>
                     </div>

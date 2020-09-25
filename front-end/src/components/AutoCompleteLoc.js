@@ -7,6 +7,8 @@ const google = window.google
 const searchOptions = {
     location: new google.maps.LatLng(37.9838106, 23.727539),
     radius: 200000,
+    types: ['(cities)'],
+    componentRestrictions: {country: 'gr'}
 }
  
 class AutoCompleteLoc extends Component {

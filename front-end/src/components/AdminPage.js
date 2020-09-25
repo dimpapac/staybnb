@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import SearchBar from './SearchBar';
 import { withRouter } from 'react-router'
 
-class MainPage extends Component
+class AdminPage extends Component
 {
 
     constructor(props , context) 
@@ -16,10 +15,10 @@ class MainPage extends Component
     render() {
         return (
             <div>
-              <SearchBar/>
+                AdminPage
             </div>
         );
     }
 }
 
-export default withRouter(MainPage);
+export default withRouter(AdminPage);

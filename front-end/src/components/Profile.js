@@ -10,7 +10,7 @@ class Profile extends Component
     {
         super(props , context);
         this.state = {
-            
+            flag: false
         };
         this.firstName = React.createRef();
         this.lastName = React.createRef();
@@ -22,6 +22,7 @@ class Profile extends Component
     handleSubmit = event => {
         const userId = JSON.parse(localStorage.getItem('user'))._id
         adService.update_user( userId , this.firstName.current.value , this.lastName.current.value , this.email.current.value )
+        this.setState({flag: true})
         event.preventDefault();
     };
 
@@ -30,6 +31,7 @@ class Profile extends Component
       return (
         <div style={{width: "40%", margin: "0 auto"}}>
             <h2 style={{textAlign: "center"}}>Προσωπικά Στοιχεία</h2>
+            
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="username">Όνομα</label>
@@ -47,6 +49,9 @@ class Profile extends Component
                 Ενημέρωση Προφίλ
               </button>
             </form>
+            {this.state.flag && <div className="alert alert-success mt-2" role="alert">
+              Επιτυχής Ενημέρωση
+            </div>}
         </div>
       );
     }

@@ -95,10 +95,11 @@ class NavBar extends Component {
                     this.handleClose()
                     this.clearInput()
                     this.setState({
-                        userType: user.userType
+                        userType: user.userType,
                     })
                     this.render();
                     user.userType === 2 && this.props.history.push('/host');
+                    user.userType === 0 && this.props.history.push('/admin');
                 },
                 error => {
                     console.log("wrong input")
@@ -143,6 +144,7 @@ class NavBar extends Component {
     doLogout = (event) => {
         authenticationService.logout();
         this.setState({userType: 3});
+        this.render()
         this.props.history.push('/');
     }
 
@@ -162,7 +164,7 @@ class NavBar extends Component {
 
     render() { 
 
-        let user = localStorage.getItem("user")
+        let user = JSON.parse(localStorage.getItem("user"))
         return (
             <React.Fragment>
             <nav className="navbar navbar-expand-lg navbar-light bg-light " >
@@ -174,6 +176,9 @@ class NavBar extends Component {
                 <NavBarMenu userType={this.state.userType}/>
                 <div className="collapse navbar-collapse  ml-auto"  id="navbarSupportedContent" >
                     <ul className="navbar-nav ml-auto " >
+                    {user && 
+                        <a className="nav-item nav-link disabled">{user.name.firstName}</a>
+                    }
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle " href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             <i className="fa fa-bars"/>
