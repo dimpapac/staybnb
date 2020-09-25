@@ -187,7 +187,7 @@ class AdPreview extends Component {
 
                     <div className="row" style={{marginTop:"5pc"}}>
                         
-                        <div className="col-9" style={{height:"50vh"}}>
+                        <div className="col-9" style={{height:"80vh"}}>
                             {this.state.info.filters.wifi == "true" && (<span className=" badge badge-primary" style={{marginLeft:"1%",marginTop:"2%",fontSize:"15px"}}>Wifi</span>)}
                             {this.state.info.filters.airco == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Κλιματισμός</span>)}
                             {this.state.info.filters.heat == "true"  && (<span className=" badge badge-primary" style={{marginLeft:"1%",fontSize:"15px"}}>Θέρμανση</span>)}
