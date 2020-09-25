@@ -83,8 +83,8 @@ router.post('/accept', function(req, res, next) {
 		hostId : hostId,
 		renterId: renterId,
 		adId: adId,
-		bookedFrom: req.body.bookedFrom,
-		bookedTill: req.body.bookedTill,
+		bookedFrom: new Date(req.body.bookedFrom),
+		bookedTill: new Date(req.body.bookedTill),
 		hostName: req.body.hostName,
 		username: req.body.username
 	}
