@@ -245,6 +245,7 @@ class AdList extends Component {
                                         heat={this.state.heat}
                                         airco={this.state.airco}
                                         wifi={this.state.wifi}
+                                        flag={1}
 									/>
 								</div>
 							)     			

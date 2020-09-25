@@ -188,7 +188,7 @@ class AdPreview extends Component {
 
 
                         </div>
-                        {localStorage.getItem('user') != null && this.state.flag != 0 && this.state.flag != 2 && (
+                        {localStorage.getItem('user') != null && this.state.flag != 0 && this.state.flag != 2 && this.state.flag != 3 && (
                             <div className="col-3" style={{height:"50vh",borderStyle:"solid",borderWidth:"1px", borderRadius:"25px",borderColor:"lightgrey"}}>
                                 <BookingButton ad={this.state.info}/>
                                 {!this.state.send && <button onClick={this.handleSend} className="btn btn-info w-100">Αποστολή Μηνύματος</button>}

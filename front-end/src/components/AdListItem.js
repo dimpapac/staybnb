@@ -7,7 +7,8 @@ class AdListItem extends Component {
         super( props , context )
         this.state = {
             info : props.ad,
-            hover: false
+            hover: false,
+            flag: this.props.flag
         }
         this.toggleHover = this.toggleHover.bind(this);
     }
@@ -44,7 +45,12 @@ class AdListItem extends Component {
                     </div>
                     <div onClick={ () => {
                         localStorage.setItem('ad', this.state.info._id);
-                        this.props.history.push('/preview');
+                        this.props.history.push({
+                            pathname: 'preview',
+                            state: {
+                                flag : this.state.flag
+                            }
+                        });
                     }}
                     class="col-sm-7 float-right" > 
                             <div class="d-flex w-100 justify-content-between row" style={{marginBottom : "5%"}}>

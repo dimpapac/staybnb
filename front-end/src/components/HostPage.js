@@ -103,6 +103,7 @@ class HostPage extends Component
                       heat={this.state.heat}
                       airco={this.state.airco}
                       wifi={this.state.wifi}
+                      flag={3}
                   />
                 </div>
               )     			
